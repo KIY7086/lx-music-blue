@@ -1,4 +1,4 @@
-import { initSetting, showPactModal } from '@/core/common'
+import { initSetting } from '@/core/common'
 import registerPlaybackService from '@/plugins/player/service'
 import initTheme from './theme'
 import initI18n from './i18n'
@@ -24,7 +24,6 @@ const handlePushedHomeScreen = async() => {
     }
   } else {
     if (isFirstPush) isFirstPush = false
-    showPactModal()
   }
 }
 

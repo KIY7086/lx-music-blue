@@ -8,12 +8,10 @@ import { sizeFormate } from '@/utils'
 // import Button from './components/Button'
 
 import { createStyle, openUrl } from '@/utils/tools'
-// import { showPactModal } from '@/navigation'
 import { useTheme } from '@/store/theme/hook'
 import { useI18n } from '@/lang'
 import { useVersionDownloadProgressUpdated, useVersionInfo } from '@/store/version/hook'
 import Text from '@/components/common/Text'
-import { showPactModal } from '@/core/common'
 import { showModal } from '@/core/version'
 
 // const qqGroupUrl = 'mqqopensdkapi://bizAgent/qm/qr?url=http%3A%2F%2Fqm.qq.com%2Fcgi-bin%2Fqm%2Fqr%3Ffrom%3Dapp%26p%3Dandroid%26jump_from%3Dwebapi%26k%3Du1zyxek8roQAwic44nOkBXtG9CfbAxFw'
@@ -39,9 +37,6 @@ export default memo(() => {
   // const openIssuesPage = () => {
   //   openUrl('https://github.com/lyswhut/lx-music-mobile/issues')
   // }
-  const openPactModal = () => {
-    showPactModal()
-  }
   const openPartPage = () => {
     void openUrl('https://github.com/lyswhut/lx-music-mobile#%E9%A1%B9%E7%9B%AE%E5%8D%8F%E8%AE%AE')
   }
@@ -110,7 +105,7 @@ export default memo(() => {
       </View>
       <View style={styles.part}>
         <Text style={styles.text}>你已签署本软件的</Text>
-        <TouchableOpacity onPress={openPactModal}><Text style={styles.text} color={theme['c-primary-font']}>许可协议</Text></TouchableOpacity>
+        <Text style={styles.text} color={theme['c-primary-font']}>许可协议</Text>
         <Text style={styles.text}>，协议的在线版本在</Text>
         <TouchableOpacity onPress={openPartPage}><Text style={textLinkStyle}>这里</Text></TouchableOpacity>
         <Text style={styles.text}>。</Text>

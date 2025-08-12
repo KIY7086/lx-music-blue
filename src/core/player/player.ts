@@ -24,7 +24,7 @@ import { requestMsg } from '@/utils/message'
 import { getRandom } from '@/utils/common'
 import { filterList } from './utils'
 import BackgroundTimer from 'react-native-background-timer'
-import { checkIgnoringBatteryOptimization, checkNotificationPermission, debounceBackgroundTimer } from '@/utils/tools'
+import { debounceBackgroundTimer } from '@/utils/tools'
 import { LIST_IDS } from '@/config/constant'
 import { addListMusics, removeListMusics } from '@/core/list'
 import { addDislikeInfo } from '@/core/dislikeList'
@@ -226,8 +226,6 @@ const debouncePlay = debounceBackgroundTimer((musicInfo: LX.Player.PlayMusic) =>
 // 处理音乐播放
 const handlePlay = async() => {
   if (!isInitialized()) {
-    await checkNotificationPermission()
-    void checkIgnoringBatteryOptimization()
     await playerInitial({
       volume: settingState.setting['player.volume'],
       playRate: settingState.setting['player.playbackRate'],
@@ -237,7 +235,7 @@ const handlePlay = async() => {
     })
   }
 
-  global.lx.isPlayedStop &&= false
+  global.lx.isPlayedStop = false
   resetRandomNextMusicInfo()
 
   if (global.lx.restorePlayInfo) {
@@ -622,7 +620,7 @@ export const stop = async() => {
  * 播放、暂停播放切换
  */
 export const togglePlay = () => {
-  global.lx.isPlayedStop &&= false
+  global.lx.isPlayedStop = false
   if (playerState.isPlay) {
     void pause()
   } else {

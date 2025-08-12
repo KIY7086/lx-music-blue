@@ -62,7 +62,7 @@ export default memo(({ isHome = false }: { isHome?: boolean }) => {
 
   // console.log('render pb')
 
-  return autoHidePlayBar && keyboardShown ? null : playerComponent
+  return (autoHidePlayBar && keyboardShown) || !musicInfo.id ? null : playerComponent
 })
 
 
