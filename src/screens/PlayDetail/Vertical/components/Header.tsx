@@ -14,7 +14,6 @@ import SettingPopup, { type SettingPopupType } from '../../components/SettingPop
 import { useStatusbarHeight } from '@/store/common/hook'
 import Btn from './Btn'
 import TimeoutExitBtn from './TimeoutExitBtn'
-import DragBar from './DragBar'
 import { EllipsisVerticalIcon } from 'react-native-heroicons/outline'
 
 export const HEADER_HEIGHT = scaleSizeH(_HEADER_HEIGHT)
@@ -48,7 +47,6 @@ export default memo(({ pageIndex, onClose }: { pageIndex: number, onClose: () =>
     <TouchableOpacity style={{ height: HEADER_HEIGHT + statusBarHeight, paddingTop: statusBarHeight }} onPress={onClose} disabled={pageIndex == 1}>
       <View style={{ flex: 1 }} nativeID={NAV_SHEAR_NATIVE_IDS.playDetail_header}>
         <StatusBar />
-        <DragBar visible={pageIndex == 0} onPress={onClose} />
         <View style={styles.container}>
           <TimeoutExitBtn />
           <Title />

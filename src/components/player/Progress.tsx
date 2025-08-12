@@ -67,11 +67,12 @@ const PreassBar = memo(({ onDragState, setDragProgress, onSetProgress }: {
 })
 
 
-const Progress = ({ progress, duration, buffered, paddingTop }: {
+const Progress = ({ progress, duration, buffered, paddingTop, onSlidingComplete }: {
   progress: number
   duration: number
   buffered: number
   paddingTop?: number
+  onSlidingComplete?: (progress: number) => void
 }) => {
   // const { progress } = usePlayTimeBuffer()
   const theme = useTheme()
@@ -85,7 +86,7 @@ const Progress = ({ progress, duration, buffered, paddingTop }: {
     durationRef.current = duration
   }, [duration])
   const onSetProgress = useCallback((progress: number) => {
-    global.app_event.setProgress(progress * durationRef.current)
+    onSlidingComplete?.(progress * durationRef.current)
   }, [])
 
   return (

@@ -49,9 +49,6 @@ export default ({ isHome }: { isHome: boolean }) => {
         <Text size={FONT_SIZE} color={theme['c-500']}> / </Text>
         <PlayTimeMax timeStr={maxPlayTimeStr} />
       </View>
-      <View style={[StyleSheet.absoluteFill, stylesRaw.progress]}>
-        <Progress progress={progress} duration={maxPlayTime} buffered={buffered} paddingTop={PADDING_TOP_PROGRESS} />
-      </View>
     </View>
   )
 }
@@ -98,10 +95,5 @@ const stylesRaw = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'space-between',
-  },
-  progress: {
-    // paddingVertical: 2,
-    marginBottom: MARGIN_TOP,
-    zIndex: 100,
   },
 })

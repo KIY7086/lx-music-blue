@@ -151,7 +151,8 @@ export function pushPlayDetailScreen(componentId: string, skipAnimation = false)
                 translationY: {
                   from: windowSizeTools.getSize().height,
                   to: 0,
-                  duration: 300,
+                  duration: 200,
+                  interpolation: { type: 'accelerate' },
                 },
               },
             },
@@ -160,7 +161,8 @@ export function pushPlayDetailScreen(componentId: string, skipAnimation = false)
                 translationY: {
                   from: 0,
                   to: windowSizeTools.getSize().height,
-                  duration: 300,
+                  duration: 200,
+                  interpolation: { type: 'accelerate' },
                 },
               },
             },

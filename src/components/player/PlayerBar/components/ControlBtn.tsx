@@ -1,6 +1,6 @@
 import { TouchableOpacity } from 'react-native'
 import { HeroIcon } from '@/components/common/HeroIcon'
-import { BackwardIcon, ForwardIcon, PauseIcon, PlayIcon } from 'react-native-heroicons/outline'
+import { PauseIcon, PlayIcon, QueueListIcon } from 'react-native-heroicons/outline'
 import { useIsPlay } from '@/store/player/hook'
 import { useTheme } from '@/store/theme/hook'
 import { playNext, playPrev, togglePlay } from '@/core/player/player'
@@ -8,31 +8,8 @@ import { createStyle } from '@/utils/tools'
 import { useHorizontalMode } from '@/utils/hooks'
 
 const BTN_SIZE = 24
-const handlePlayPrev = () => {
-  void playPrev()
-}
-const handlePlayNext = () => {
-  void playNext()
-}
-
-const PlayPrevBtn = () => {
-  const theme = useTheme()
-
-  return (
-    <TouchableOpacity style={styles.cotrolBtn} activeOpacity={0.5} onPress={handlePlayPrev}>
-      <HeroIcon icon={BackwardIcon} color={theme['c-button-font']} size={BTN_SIZE} />
-    </TouchableOpacity>
-  )
-}
-
-const PlayNextBtn = () => {
-  const theme = useTheme()
-
-  return (
-    <TouchableOpacity style={styles.cotrolBtn} activeOpacity={0.5} onPress={handlePlayNext}>
-      <HeroIcon icon={ForwardIcon} color={theme['c-button-font']} size={BTN_SIZE} />
-    </TouchableOpacity>
-  )
+const handleShowPlaylist = () => {
+  global.app_event.changeLoveListVisible(true)
 }
 
 const TogglePlayBtn = () => {
@@ -47,13 +24,10 @@ const TogglePlayBtn = () => {
 }
 
 export default () => {
-  const isHorizontalMode = useHorizontalMode()
+  // const isHorizontalMode = useHorizontalMode()
   return (
     <>
-      {/* {btnPrev} */}
-      { isHorizontalMode ? <PlayPrevBtn /> : null }
       <TogglePlayBtn />
-      <PlayNextBtn />
     </>
   )
 }
