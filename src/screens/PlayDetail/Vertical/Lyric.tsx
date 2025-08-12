@@ -265,8 +265,7 @@ export default () => {
       delayScrollTimeout.current = null
       handleScrollToActive()
     }, 600)
-  // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [line])
+  }, [line, handleScrollToActive])
 
   useEffect(() => {
     requestAnimationFrame(() => {

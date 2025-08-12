@@ -1,5 +1,6 @@
 import { TouchableOpacity } from 'react-native'
-import { Icon } from '@/components/common/Icon'
+import { HeroIcon } from '@/components/common/HeroIcon'
+import { BackwardIcon, ForwardIcon, PauseIcon, PlayIcon } from 'react-native-heroicons/outline'
 import { useIsPlay } from '@/store/player/hook'
 import { useTheme } from '@/store/theme/hook'
 import { playNext, playPrev, togglePlay } from '@/core/player/player'
@@ -19,7 +20,7 @@ const PlayPrevBtn = () => {
 
   return (
     <TouchableOpacity style={styles.cotrolBtn} activeOpacity={0.5} onPress={handlePlayPrev}>
-      <Icon name='prevMusic' color={theme['c-button-font']} size={BTN_SIZE} />
+      <HeroIcon icon={BackwardIcon} color={theme['c-button-font']} size={BTN_SIZE} />
     </TouchableOpacity>
   )
 }
@@ -29,7 +30,7 @@ const PlayNextBtn = () => {
 
   return (
     <TouchableOpacity style={styles.cotrolBtn} activeOpacity={0.5} onPress={handlePlayNext}>
-      <Icon name='nextMusic' color={theme['c-button-font']} size={BTN_SIZE} />
+      <HeroIcon icon={ForwardIcon} color={theme['c-button-font']} size={BTN_SIZE} />
     </TouchableOpacity>
   )
 }
@@ -40,7 +41,7 @@ const TogglePlayBtn = () => {
 
   return (
     <TouchableOpacity style={styles.cotrolBtn} activeOpacity={0.5} onPress={togglePlay}>
-      <Icon name={isPlay ? 'pause' : 'play'} color={theme['c-button-font']} size={BTN_SIZE} />
+      <HeroIcon icon={isPlay ? PauseIcon : PlayIcon} color={theme['c-button-font']} size={BTN_SIZE} />
     </TouchableOpacity>
   )
 }
@@ -49,12 +50,6 @@ export default () => {
   const isHorizontalMode = useHorizontalMode()
   return (
     <>
-      {/* <TouchableOpacity activeOpacity={0.5} onPress={toggleNextPlayMode}>
-        <Text style={{ ...styles.cotrolBtn }}>
-          <Icon name={playModeIcon} style={{ color: theme.secondary10 }} size={18} />
-        </Text>
-      </TouchableOpacity>
-    */}
       {/* {btnPrev} */}
       { isHorizontalMode ? <PlayPrevBtn /> : null }
       <TogglePlayBtn />

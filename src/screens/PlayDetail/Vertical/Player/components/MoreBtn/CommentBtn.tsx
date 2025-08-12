@@ -1,6 +1,7 @@
 import Btn from './Btn'
 import { navigations } from '@/navigation'
 import commonState from '@/store/common/state'
+import { ChatBubbleOvalLeftIcon } from 'react-native-heroicons/outline'
 
 
 export default () => {
@@ -8,5 +9,5 @@ export default () => {
     navigations.pushCommentScreen(commonState.componentIds.playDetail!)
   }
 
-  return <Btn icon="comment" onPress={handleShowCommentScreen} />
+  return <Btn icon={ChatBubbleOvalLeftIcon} onPress={handleShowCommentScreen} />
 }

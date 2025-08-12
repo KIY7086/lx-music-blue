@@ -56,34 +56,35 @@ export async function pushHomeScreen() {
   return Navigation.setRoot({
     root: {
       stack: {
-        children: [{
-          component: {
-            name: HOME_SCREEN,
-            options: {
-              topBar: {
-                visible: false,
-                height: 0,
-                drawBehind: false,
-              },
-              statusBar: {
-                drawBehind: true,
-                visible: true,
-                style: getStatusBarStyle(theme.isDark),
-                backgroundColor: 'transparent',
-              },
-              navigationBar: {
-                // visible: false,
-                backgroundColor: theme['c-content-background'],
-              },
-              layout: {
-                componentBackgroundColor: theme['c-content-background'],
+        children: [
+          {
+            component: {
+              name: HOME_SCREEN,
+              options: {
+                topBar: {
+                  visible: false,
+                  height: 0,
+                  drawBehind: false,
+                },
+                statusBar: {
+                  drawBehind: true,
+                  visible: true,
+                  style: getStatusBarStyle(theme.isDark),
+                  backgroundColor: 'transparent',
+                },
+                navigationBar: {
+                  backgroundColor: theme['c-content-background'],
+                },
+                layout: {
+                  componentBackgroundColor: theme['c-content-background'],
+                },
               },
             },
           },
-        }],
+        ],
       },
     },
-  })
+  });
 }
 export function pushPlayDetailScreen(componentId: string, skipAnimation = false) {
   /*
@@ -144,51 +145,21 @@ export function pushPlayDetailScreen(componentId: string, skipAnimation = false)
             componentBackgroundColor: theme['c-content-background'],
           },
           animations: {
-            push: skipAnimation ? {} : {
-              sharedElementTransitions: [
-                {
-                  fromId: NAV_SHEAR_NATIVE_IDS.playDetail_pic,
-                  toId: NAV_SHEAR_NATIVE_IDS.playDetail_pic,
-                  interpolation: { type: 'spring' },
+            push: {
+              waitForRender: true,
+              content: {
+                translationY: {
+                  from: windowSizeTools.getSize().height,
+                  to: 0,
+                  duration: 300,
                 },
-              ],
-              elementTransitions: [
-                {
-                  id: NAV_SHEAR_NATIVE_IDS.playDetail_header,
-                  alpha: {
-                    from: 0, // We don't declare 'to' value as that is the element's current alpha value, here we're essentially animating from 0 to 1
-                    duration: 300,
-                  },
-                  translationY: {
-                    from: -32, // Animate translationY from 16dp to 0dp
-                    duration: 300,
-                  },
-                },
-                {
-                  id: NAV_SHEAR_NATIVE_IDS.playDetail_player,
-                  alpha: {
-                    from: 0, // We don't declare 'to' value as that is the element's current alpha value, here we're essentially animating from 0 to 1
-                    duration: 300,
-                  },
-                  translationY: {
-                    from: 32, // Animate translationY from 16dp to 0dp
-                    duration: 300,
-                  },
-                },
-              ],
-              // content: {
-              //   translationX: {
-              //     from: windowSizeTools.getSize().width,
-              //     to: 0,
-              //     duration: 300,
-              //   },
-              // },
+              },
             },
             pop: {
               content: {
-                translationX: {
+                translationY: {
                   from: 0,
-                  to: windowSizeTools.getSize().width,
+                  to: windowSizeTools.getSize().height,
                   duration: 300,
                 },
               },

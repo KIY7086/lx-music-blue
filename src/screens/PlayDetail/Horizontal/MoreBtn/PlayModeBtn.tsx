@@ -5,6 +5,7 @@ import { useSettingValue } from '@/store/setting/hook'
 import { useI18n } from '@/lang'
 import { updateSetting } from '@/core/common'
 import Btn from './Btn'
+import { ArrowsRightLeftIcon, ArrowPathIcon, Bars3Icon, ForwardIcon, StopIcon } from 'react-native-heroicons/outline'
 
 
 export default memo(() => {
@@ -38,22 +39,22 @@ export default memo(() => {
   }
 
   const playModeIcon = useMemo(() => {
-    let playModeIcon = null
+    let playModeIcon
     switch (togglePlayMethod) {
       case MUSIC_TOGGLE_MODE.listLoop:
-        playModeIcon = 'list-loop'
+        playModeIcon = ArrowPathIcon
         break
       case MUSIC_TOGGLE_MODE.random:
-        playModeIcon = 'list-random'
+        playModeIcon = ArrowsRightLeftIcon
         break
       case MUSIC_TOGGLE_MODE.list:
-        playModeIcon = 'list-order'
+        playModeIcon = Bars3Icon
         break
       case MUSIC_TOGGLE_MODE.singleLoop:
-        playModeIcon = 'single-loop'
+        playModeIcon = ForwardIcon
         break
       default:
-        playModeIcon = 'single'
+        playModeIcon = StopIcon
         break
     }
     return playModeIcon

@@ -5,7 +5,8 @@ import Dialog, { type DialogType } from '@/components/common/Dialog'
 import { FlatList, ScrollView, TouchableOpacity, View, type FlatListProps as _FlatListProps } from 'react-native'
 import { scaleSizeH } from '@/utils/pixelRatio'
 import { useTheme } from '@/store/theme/hook'
-import { Icon } from '@/components/common/Icon'
+import { HeroIcon } from '@/components/common/HeroIcon'
+import { ShareIcon, PlayIcon } from 'react-native-heroicons/outline'
 import { useHorizontalMode, useUnmounted } from '@/utils/hooks'
 import { useI18n } from '@/lang'
 import Button from '@/components/common/Button'
@@ -103,10 +104,10 @@ const ListItem = memo(({ info, onPlay, onOpenDetail }: {
       </View>
       <View style={styles.listItemBtns}>
         <Button style={styles.listItemBtn} onPress={() => { onOpenDetail(info) }}>
-          <Icon name="share" style={{ color: theme['c-button-font'] }} size={18} />
+          <HeroIcon icon={ShareIcon} color={theme['c-button-font']} size={18} />
         </Button>
         <Button style={styles.listItemBtn} onPress={() => { onPlay(info) }}>
-          <Icon name="play" style={{ color: theme['c-button-font'] }} size={18} />
+          <HeroIcon icon={PlayIcon} color={theme['c-button-font']} size={18} />
         </Button>
       </View>
     </View>

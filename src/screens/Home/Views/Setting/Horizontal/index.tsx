@@ -21,7 +21,7 @@ const styles = createStyle({
     paddingLeft: 15,
     paddingRight: 15,
     paddingTop: 15,
-    paddingBottom: 15,
+    paddingBottom: 100,
     flex: 0,
   },
 })
@@ -35,11 +35,13 @@ export default () => {
       <View style={{ ...styles.nav, borderRightColor: theme['c-border-background'] }}>
         <NavList onChangeId={(id) => mainRef.current?.setActiveId(id)} />
       </View>
-      <ScrollView keyboardShouldPersistTaps={'always'}>
-        <View style={styles.main}>
-          <Main ref={mainRef} />
-        </View>
-      </ScrollView>
+      <View style={{ flex: 1 }}>
+        <ScrollView keyboardShouldPersistTaps={'always'}>
+          <View style={styles.main}>
+            <Main ref={mainRef} />
+          </View>
+        </ScrollView>
+      </View>
     </View>
   )
 }

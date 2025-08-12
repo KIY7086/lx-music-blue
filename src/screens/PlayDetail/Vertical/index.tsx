@@ -1,5 +1,5 @@
-import { memo, useState, useRef, useMemo, useEffect } from 'react'
-import { View, AppState } from 'react-native'
+import { memo, useState, useRef, useMemo } from 'react'
+import { View, PanResponder } from 'react-native'
 
 import Header from './components/Header'
 // import Aside from './components/Aside'
@@ -8,9 +8,10 @@ import Player from './Player'
 import PagerView, { type PagerViewOnPageSelectedEvent } from 'react-native-pager-view'
 import Pic from './Pic'
 import Lyric from './Lyric'
-import { screenkeepAwake, screenUnkeepAwake } from '@/utils/nativeModules/utils'
-import commonState, { type InitState as CommonState } from '@/store/common/state'
+import { useScreenKeepAwake } from '../hooks'
 import { createStyle } from '@/utils/tools'
+import { pop } from '@/navigation'
+import commonState from '@/store/common/state'
 // import { useTheme } from '@/store/theme/hook'
 
 const LyricPage = ({ activeIndex }: { activeIndex: number }) => {
@@ -31,50 +32,27 @@ const LyricPage = ({ activeIndex }: { activeIndex: number }) => {
 export default memo(({ componentId }: { componentId: string }) => {
   // const theme = useTheme()
   const [pageIndex, setPageIndex] = useState(0)
-  const showLyricRef = useRef(false)
+  const [isKeepAwake, setIsKeepAwake] = useState(false)
+  const pagerViewRef = useRef<PagerView>(null)
+  useScreenKeepAwake(isKeepAwake)
 
-  const onPageSelected = ({ nativeEvent }: PagerViewOnPageSelectedEvent) => {
-    setPageIndex(nativeEvent.position)
-    showLyricRef.current = nativeEvent.position == 1
-    if (showLyricRef.current) {
-      screenkeepAwake()
-    } else {
-      screenUnkeepAwake()
-    }
+  const close = () => {
+    void pop(commonState.componentIds.playDetail!)
   }
 
-  useEffect(() => {
-    let appstateListener = AppState.addEventListener('change', (state) => {
-      switch (state) {
-        case 'active':
-          if (showLyricRef.current && !commonState.componentIds.comment) screenkeepAwake()
-          break
-        case 'background':
-          screenUnkeepAwake()
-          break
-      }
-    })
+  const onPageSelected = ({ nativeEvent }: PagerViewOnPageSelectedEvent) => {
+    const index = nativeEvent.position
+    setPageIndex(index)
+    setIsKeepAwake(index === 1)
+  }
 
-    const handleComponentIdsChange = (ids: CommonState['componentIds']) => {
-      if (ids.comment) screenUnkeepAwake()
-      else if (AppState.currentState == 'active') screenkeepAwake()
-    }
-
-    global.state_event.on('componentIdsUpdated', handleComponentIdsChange)
-
-    return () => {
-      global.state_event.off('componentIdsUpdated', handleComponentIdsChange)
-      appstateListener.remove()
-      screenUnkeepAwake()
-    }
-  // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [])
 
   return (
-    <>
-      <Header />
+    <View style={{ flex: 1 }}>
+      <Header pageIndex={pageIndex} onClose={close} />
       <View style={styles.container}>
         <PagerView
+          ref={pagerViewRef}
           onPageSelected={onPageSelected}
           // onPageScrollStateChanged={onPageScrollStateChanged}
           style={styles.pagerView}
@@ -92,7 +70,7 @@ export default memo(({ componentId }: { componentId: string }) => {
         </View> */}
         <Player />
       </View>
-    </>
+    </View>
   )
 })
 

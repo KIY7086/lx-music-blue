@@ -17,29 +17,6 @@ export const BG_IMAGES = {
 
 
 let userThemes: LX.Theme[]
-export const getAllThemes = async() => {
-  // eslint-disable-next-line require-atomic-updates
-  userThemes ??= await getUserTheme()
-  return {
-    themes,
-    userThemes,
-    dataPath: privateStorageDirectoryPath + '/theme_images',
-  }
-}
-
-export const saveTheme = async(theme: LX.Theme) => {
-  const targetTheme = userThemes.find(t => t.id === theme.id)
-  if (targetTheme) Object.assign(targetTheme, theme)
-  else userThemes.push(theme)
-  await saveUserTheme(userThemes)
-}
-
-export const removeTheme = async(id: string) => {
-  const index = userThemes.findIndex(t => t.id === id)
-  if (index < 0) return
-  userThemes.splice(index, 1)
-  await saveUserTheme(userThemes)
-}
 
 export type LocalTheme = typeof themes[number]
 type ColorsKey = keyof LX.Theme['config']['themeColors']
@@ -109,29 +86,7 @@ export const buildActiveThemeColors = (theme: LX.Theme): LX.ActiveTheme => {
 // }
 // type IDS = LocalTheme['id']
 export const getTheme = async() => {
-  // fs.promises.readdir()
-  const shouldUseDarkColors = themeState.shouldUseDarkColors
-  // let themeId = settingState.setting['theme.id'] == 'auto'
-  //   ? shouldUseDarkColors
-  //     ? settingState.setting['theme.darkId']
-  //     : settingState.setting['theme.lightId']
-  //   // : 'china_ink'
-  //   : settingState.setting['theme.id']
-  let themeId = settingState.setting['common.isAutoTheme'] && shouldUseDarkColors
-    ? 'black'
-    : settingState.setting['theme.id']
-  // themeId = 'naruto'
-  // themeId = 'pink'
-  // themeId = 'black'
-  let theme: LocalTheme | LX.Theme | undefined = themes.find(theme => theme.id == themeId)
-  if (!theme) {
-    userThemes = await getUserTheme()
-    theme = userThemes.find(theme => theme.id == themeId)
-    if (!theme) {
-      themeId = settingState.setting['theme.id'] == 'auto' && shouldUseDarkColors ? 'black' : 'green'
-      theme = themes.find(theme => theme.id == themeId) as LX.Theme
-    }
-  }
-
-  return theme
+  const themeId = 'blue_plus'
+  const theme: LocalTheme | undefined = themes.find(theme => theme.id == themeId)
+  return theme as LocalTheme
 }

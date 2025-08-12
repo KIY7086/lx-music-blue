@@ -26,38 +26,6 @@ const headerComponents: Partial<Record<CommonState['navActiveId'], React.ReactNo
 
 //   return <Text style={styles.leftTitle} size={18}>{t(id)}</Text>
 // }
-const LeftHeader = () => {
-  const theme = useTheme()
-  const id = useNavActiveId()
-  const t = useI18n()
-  const statusBarHeight = useStatusbarHeight()
-
-  const openMenu = () => {
-    global.app_event.changeMenuVisible(true)
-  }
-
-  return (
-    <View style={{
-      ...styles.container,
-      height: scaleSizeH(HEADER_HEIGHT) + statusBarHeight,
-      paddingTop: statusBarHeight,
-    }}>
-      <View style={styles.left}>
-        <TouchableOpacity style={styles.btn} onPress={openMenu}>
-          <Icon color={theme['c-font']} name="menu" size={18} />
-        </TouchableOpacity>
-        <TouchableOpacity style={styles.titleBtn} onPress={openMenu}>
-          <Text style={styles.leftTitle} size={18}>{t(id)}</Text>
-        </TouchableOpacity>
-      </View>
-      {headerComponents[id] ?? null}
-
-      {/* <TouchableOpacity style={styles.btn} onPress={openSetting}>
-        <Icon style={{ ...styles.btnText, color: theme['c-font'] }} name="setting" size={styles.btnText.fontSize} />
-      </TouchableOpacity> */}
-    </View>
-  )
-}
 
 
 // const RightTitle = () => {
@@ -66,49 +34,25 @@ const LeftHeader = () => {
 
 //   return <Text style={styles.rightTitle} size={18}>{t(id)}</Text>
 // }
-const RightHeader = () => {
-  const theme = useTheme()
-  const t = useI18n()
-  const id = useNavActiveId()
-  const statusBarHeight = useStatusbarHeight()
-
-  const openMenu = () => {
-    global.app_event.changeMenuVisible(true)
-  }
-  return (
-    <View style={{
-      ...styles.container,
-      height: scaleSizeH(HEADER_HEIGHT) + statusBarHeight,
-      paddingTop: statusBarHeight,
-    }}>
-      <View style={styles.left}>
-        <TouchableOpacity style={styles.titleBtn} onPress={openMenu}>
-          <Text style={styles.rightTitle} size={18}>{t(id)}</Text>
-        </TouchableOpacity>
-      </View>
-      {headerComponents[id] ?? null}
-      <TouchableOpacity style={styles.btn} onPress={openMenu}>
-        <Icon color={theme['c-font']} name="menu" size={18} />
-      </TouchableOpacity>
-      {/* <TouchableOpacity style={styles.btn} onPress={openSetting}>
-        <Icon style={{ ...styles.btnText, color: theme['c-font'] }} name="setting" size={styles.btnText.fontSize} />
-      </TouchableOpacity> */}
-    </View>
-  )
-}
 
 const Header = () => {
-  const drawerLayoutPosition = useSettingValue('common.drawerLayoutPosition')
+  const id = useNavActiveId()
+  const t = useI18n()
+  const statusBarHeight = useStatusbarHeight()
 
   return (
     <>
       <StatusBar />
-      {
-        drawerLayoutPosition == 'left'
-          ? <LeftHeader />
-          : <RightHeader />
-      }
-
+      <View style={{
+        ...styles.container,
+        height: scaleSizeH(HEADER_HEIGHT) + statusBarHeight,
+        paddingTop: statusBarHeight,
+      }}>
+        <View style={styles.left}>
+          <Text style={styles.leftTitle} size={18}>{t(id)}</Text>
+        </View>
+        {headerComponents[id] ?? null}
+      </View>
     </>
   )
 }
@@ -116,12 +60,9 @@ const Header = () => {
 
 const styles = createStyle({
   container: {
-    // width: '100%',
-    paddingRight: 5,
+    paddingHorizontal: 15,
     flexDirection: 'row',
-    justifyContent: 'center',
     alignItems: 'center',
-    // backgroundColor: 'rgba(0,0,0,0.1)',
     zIndex: 10,
   },
   left: {

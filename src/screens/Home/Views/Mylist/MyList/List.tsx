@@ -1,7 +1,8 @@
 import { memo, useEffect, useRef } from 'react'
 import { View, TouchableOpacity, FlatList, type NativeScrollEvent, type NativeSyntheticEvent, type FlatListProps } from 'react-native'
 
-import { Icon } from '@/components/common/Icon'
+import { HeroIcon } from '@/components/common/HeroIcon'
+import { ChevronRightIcon, EllipsisVerticalIcon } from 'react-native-heroicons/outline'
 
 import { useTheme } from '@/store/theme/hook'
 import { useActiveListId, useListFetching, useMyList } from '@/store/list/hook'
@@ -48,7 +49,7 @@ const ListItem = memo(({ item, index, activeId, onPress, onShowMenu }: {
     <View style={{ ...styles.listItem, height: ITEM_HEIGHT }}>
       {
         active
-          ? <Icon style={styles.listActiveIcon} name="chevron-right" size={12} color={theme['c-primary-font']} />
+          ? <HeroIcon icon={ChevronRightIcon} style={styles.listActiveIcon} size={12} color={theme['c-primary-font']} />
           : null
       }
       { fetching ? <Loading color={active ? theme['c-primary-font'] : theme['c-font']} style={styles.loading} /> : null }
@@ -56,7 +57,7 @@ const ListItem = memo(({ item, index, activeId, onPress, onShowMenu }: {
         <Text numberOfLines={1} color={active ? theme['c-primary-font'] : theme['c-font']}>{item.name}</Text>
       </TouchableOpacity>
       <TouchableOpacity onPress={handleShowMenu} ref={moreButtonRef} style={styles.listMoreBtn}>
-        <Icon name="dots-vertical" color={theme['c-350']} size={12} />
+        <HeroIcon icon={EllipsisVerticalIcon} color={theme['c-350']} size={12} />
       </TouchableOpacity>
     </View>
   )

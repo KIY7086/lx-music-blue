@@ -1,7 +1,8 @@
 import { forwardRef, useImperativeHandle, useState } from 'react'
 import { TouchableOpacity } from 'react-native'
 
-import { Icon } from '@/components/common/Icon'
+import { HeroIcon } from '@/components/common/HeroIcon'
+import { ChevronRightIcon } from 'react-native-heroicons/outline'
 import { BorderWidths } from '@/theme'
 import { useTheme } from '@/store/theme/hook'
 import { createStyle } from '@/utils/tools'
@@ -29,7 +30,7 @@ export default forwardRef<HeaderType, HeaderProps>(({ onShowNavBar }, ref) => {
 
   return (
     <TouchableOpacity onPress={onShowNavBar} style={{ ...styles.currentList, borderBottomColor: theme['c-border-background'] }}>
-      <Icon style={styles.currentListIcon} color={theme['c-button-font']} name="chevron-right" size={12} />
+      <HeroIcon icon={ChevronRightIcon} style={styles.currentListIcon} color={theme['c-button-font']} size={12} />
       <Text numberOfLines={1} size={16} style={styles.currentListText} color={theme['c-button-font']}>{t(`setting_${activeId}`)}</Text>
     </TouchableOpacity>
   )

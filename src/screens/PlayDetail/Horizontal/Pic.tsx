@@ -22,8 +22,8 @@ export default memo(({ componentId }: { componentId: string }) => {
   const [animated, setAnimated] = useState(!!commonState.componentIds.playDetail)
   const [pic, setPic] = useState(musicInfo.pic)
   useEffect(() => {
-    if (animated) setPic(musicInfo.pic)
-  }, [musicInfo.pic, animated])
+    setPic(musicInfo.pic)
+  }, [musicInfo.pic])
 
   useNavigationComponentDidAppear(componentId, () => {
     setAnimated(true)

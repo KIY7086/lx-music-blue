@@ -9,7 +9,8 @@ import { useSettingValue } from '@/store/setting/hook'
 import { removeUserApi, setUserApiAllowShowUpdateAlert } from '@/core/userApi'
 import { BorderRadius } from '@/theme'
 import CheckBox from '@/components/common/CheckBox'
-import { Icon } from '@/components/common/Icon'
+import { HeroIcon } from '@/components/common/HeroIcon'
+import { XMarkIcon } from 'react-native-heroicons/outline'
 import settingState from '@/store/setting/state'
 import apiSourceInfo from '@/utils/musicSdk/api-source-info'
 import { setApiSource } from '@/core/apiSource'
@@ -57,7 +58,7 @@ const ListItem = ({ item, activeId, onRemove, onChangeAllowShowUpdateAlert }: {
       </View>
       <View style={styles.listItemRight}>
         <TouchableOpacity style={styles.btn} onPress={handleRemove}>
-          <Icon name="close" color={theme['c-button-font']} />
+          <HeroIcon icon={XMarkIcon} color={theme['c-button-font']} />
         </TouchableOpacity>
       </View>
     </View>

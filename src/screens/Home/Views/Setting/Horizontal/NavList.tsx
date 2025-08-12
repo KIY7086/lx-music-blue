@@ -1,7 +1,8 @@
 import { memo, useRef, useState } from 'react'
 import { View, TouchableOpacity, FlatList, type FlatListProps } from 'react-native'
 
-import { Icon } from '@/components/common/Icon'
+import { HeroIcon } from '@/components/common/HeroIcon'
+import { ChevronRightIcon } from 'react-native-heroicons/outline'
 
 import { useTheme } from '@/store/theme/hook'
 import { createStyle } from '@/utils/tools'
@@ -32,7 +33,7 @@ const ListItem = memo(({ id, activeId, onPress }: {
     <View style={{ ...styles.listItem, height: ITEM_HEIGHT }}>
       {
         active
-          ? <Icon style={styles.listActiveIcon} name="chevron-right" size={12} color={theme['c-primary-font']} />
+          ? <HeroIcon icon={ChevronRightIcon} style={styles.listActiveIcon} size={12} color={theme['c-primary-font']} />
           : null
       }
       <TouchableOpacity style={styles.listName} onPress={handlePress}>

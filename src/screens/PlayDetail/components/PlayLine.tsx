@@ -6,7 +6,8 @@ import { type Lines } from 'lrc-file-parser'
 import { useTheme } from '@/store/theme/hook'
 import { BorderWidths } from '@/theme'
 import { formatPlayTime2 } from '@/utils'
-import { Icon } from '@/components/common/Icon'
+import { HeroIcon } from '@/components/common/HeroIcon'
+import { PlayIcon } from 'react-native-heroicons/outline'
 
 
 export interface PlayLineType {
@@ -86,7 +87,7 @@ export default forwardRef<PlayLineType, PlayLineProps>(({ onPlayLine }, ref) => 
       <View style={styles.lineContent}>
         <View style={{ ...styles.line, borderBottomColor: theme['c-primary-alpha-700'] }} />
         <TouchableOpacity style={styles.button} onPress={handlePlayLine}>
-          <Icon name="play" color={theme['c-button-font']} size={18} />
+          <HeroIcon icon={PlayIcon} color={theme['c-button-font']} size={18} />
         </TouchableOpacity>
       </View>
     </Animated.View>

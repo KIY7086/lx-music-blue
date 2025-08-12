@@ -1,5 +1,5 @@
-import { createI18n } from '@/lang/i18n'
-import type { I18n } from '@/lang/i18n'
+import { createI18n } from '@/lang'
+import type { I18n } from '@/lang'
 import { getDeviceLanguage } from '@/utils/tools'
 import { setLanguage, updateSetting } from '@/core/common'
 

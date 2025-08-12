@@ -1,7 +1,8 @@
 import { memo } from 'react'
 import { View, TouchableOpacity } from 'react-native'
 
-import { Icon } from '@/components/common/Icon'
+import { HeroIcon } from '@/components/common/HeroIcon'
+import { ChevronLeftIcon, ArrowPathIcon } from 'react-native-heroicons/outline'
 import { pop } from '@/navigation'
 // import { AppColors } from '@/theme'
 import StatusBar from '@/components/common/StatusBar'
@@ -30,11 +31,11 @@ export default memo(({ musicInfo }: {
       <StatusBar />
       <View style={{ ...styles.container }}>
         <TouchableOpacity onPress={back} style={{ ...styles.button, width: HEADER_HEIGHT }}>
-          <Icon name="chevron-left" size={18} />
+          <HeroIcon icon={ChevronLeftIcon} size={18} />
         </TouchableOpacity>
         <Text numberOfLines={1} size={16} style={styles.title}>{t('comment_title', { name: musicInfo.name, singer: musicInfo.singer })}</Text>
         {/* <TouchableOpacity onPress={back} style={{ ...styles.button }}>
-          <Icon name="available_updates" style={{ color: theme.normal }} size={24} />
+          <HeroIcon icon={ArrowPathIcon} color={theme.normal} size={24} />
         </TouchableOpacity> */}
       </View>
     </View>

@@ -7,7 +7,8 @@ import { createStyle } from '@/utils/tools'
 import { useTheme } from '@/store/theme/hook'
 import { useI18n } from '@/lang'
 import { clearHistoryList, getSearchHistory, removeHistoryWord } from '@/core/search/search'
-import { Icon } from '@/components/common/Icon'
+import { HeroIcon } from '@/components/common/HeroIcon'
+import { BackspaceIcon } from 'react-native-heroicons/outline'
 
 
 export type List = NonNullable<InitState['sourceList'][keyof InitState['sourceList']]>
@@ -81,7 +82,7 @@ export default forwardRef<HistorySearchType, HistorySearchProps>((props, ref) =>
             <View style={styles.titleContent}>
               <Text size={16}>{t('search_history_search')}</Text>
               <TouchableOpacity onPress={handleClear} style={styles.titleBtn}>
-                <Icon name="eraser" color={theme['c-300']} size={14} />
+                <HeroIcon icon={BackspaceIcon} color={theme['c-300']} size={14} />
               </TouchableOpacity>
             </View>
             <View style={styles.list}>

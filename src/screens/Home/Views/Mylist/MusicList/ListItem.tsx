@@ -2,7 +2,8 @@ import { memo, useRef } from 'react'
 import { View, TouchableOpacity } from 'react-native'
 import { LIST_ITEM_HEIGHT } from '@/config/constant'
 // import { BorderWidths } from '@/theme'
-import { Icon } from '@/components/common/Icon'
+import { HeroIcon } from '@/components/common/HeroIcon'
+import { PlayIcon, EllipsisVerticalIcon } from 'react-native-heroicons/outline'
 import { createStyle, type RowInfo } from '@/utils/tools'
 import { useTheme } from '@/store/theme/hook'
 import { useAssertApiSupport } from '@/store/common/hook'
@@ -46,11 +47,13 @@ export default memo(({ item, index, activeIndex, onPress, onShowMenu, onLongPres
   return (
     <View style={{ ...styles.listItem, width: rowInfo.rowWidth, height: ITEM_HEIGHT, backgroundColor: isSelected ? theme['c-primary-background-hover'] : 'rgba(0,0,0,0)', opacity: isSupported ? 1 : 0.5 }}>
       <TouchableOpacity style={styles.listItemLeft} onPress={() => { onPress(item, index) }} onLongPress={() => { onLongPress(item, index) }}>
+        <View style={styles.sn}>
         {
           active
-            ? <Icon style={styles.sn} name="play-outline" size={13} color={theme['c-primary-font']} />
-            : <Text style={styles.sn} size={13} color={theme['c-300']}>{index + 1}</Text>
+            ? <HeroIcon icon={PlayIcon} size={13} color={theme['c-primary-font']} />
+            : <Text size={13} color={theme['c-300']}>{index + 1}</Text>
         }
+        </View>
         <View style={styles.itemInfo}>
           {/* <View style={styles.listItemTitle}> */}
           <Text color={active ? theme['c-primary-font'] : theme['c-font']} numberOfLines={1}>{item.name}</Text>
@@ -70,7 +73,7 @@ export default memo(({ item, index, activeIndex, onPress, onShowMenu, onLongPres
       </TouchableOpacity>
       {/* <View style={styles.listItemRight}> */}
       <TouchableOpacity onPress={handleShowMenu} ref={moreButtonRef} style={styles.moreButton}>
-        <Icon name="dots-vertical" style={{ color: theme['c-350'] }} size={12} />
+        <HeroIcon icon={EllipsisVerticalIcon} color={theme['c-350']} size={12} />
       </TouchableOpacity>
       {/* </View> */}
     </View>
@@ -106,11 +109,8 @@ const styles = createStyle({
   },
   sn: {
     width: 38,
-    // fontSize: 12,
-    textAlign: 'center',
-    // backgroundColor: 'rgba(0,0,0,0.2)',
-    paddingLeft: 3,
-    paddingRight: 3,
+    justifyContent: 'center',
+    alignItems: 'center',
   },
   itemInfo: {
     flexGrow: 1,

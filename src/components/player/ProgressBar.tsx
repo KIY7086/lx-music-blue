@@ -4,7 +4,6 @@ import { createStyle } from '@/utils/tools'
 import { useTheme } from '@/store/theme/hook'
 import { scaleSizeW, scaleSizeH } from '@/utils/pixelRatio'
 import { useDrag } from '@/utils/hooks'
-import { Icon } from '@/components/common/Icon'
 // import { AppColors } from '@/theme'
 
 
@@ -102,12 +101,22 @@ const Progress = ({ progress, duration, buffered }: {
                 <>
                   <View style={{ ...styles.progressBar, backgroundColor: theme['c-primary-light-100-alpha-700'], width: progressStr, position: 'absolute', left: 0, top: 0 }} />
                   <View style={{ ...styles.progressBar, backgroundColor: theme['c-primary-light-100-alpha-600'], width: `${dragProgress * 100}%`, position: 'absolute', left: 0, top: 0 }}>
-                    <Icon name="full_stop" color={theme['c-primary-light-100']} rawSize={progressDotSize} style={progressDotStyle} />
+                    <View style={[{
+                      width: progressDotSize,
+                      height: progressDotSize,
+                      borderRadius: progressDotSize / 2,
+                      backgroundColor: theme['c-primary-light-100'],
+                    }, progressDotStyle]} />
                   </View>
                 </>
               ) : (
                 <View style={{ ...styles.progressBar, backgroundColor: theme['c-primary-light-100-alpha-400'], width: progressStr, position: 'absolute', left: 0, top: 0 }}>
-                  <Icon name="full_stop" color={theme['c-primary-light-100']} rawSize={progressDotSize} style={progressDotStyle} />
+                  <View style={[{
+                    width: progressDotSize,
+                    height: progressDotSize,
+                    borderRadius: progressDotSize / 2,
+                    backgroundColor: theme['c-primary-light-100'],
+                  }, progressDotStyle]} />
                 </View>
               )
         }

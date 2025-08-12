@@ -2,6 +2,7 @@ import { memo, useRef } from 'react'
 import TimeoutExitEditModal, { type TimeoutExitEditModalType, useTimeInfo } from '@/components/TimeoutExitEditModal'
 import { useTheme } from '@/store/theme/hook'
 import Btn from './Btn'
+import { ClockIcon } from 'react-native-heroicons/outline'
 
 
 export default memo(() => {
@@ -16,7 +17,7 @@ export default memo(() => {
 
   return (
     <>
-      <Btn icon="music_time" color={timeInfo.active ? theme['c-primary-font-active'] : theme['c-font']} onPress={handleShow} />
+      <Btn icon={ClockIcon} color={timeInfo.active ? theme['c-primary-font-active'] : theme['c-font']} onPress={handleShow} />
       <TimeoutExitEditModal ref={modalRef} timeInfo={timeInfo} />
     </>
   )

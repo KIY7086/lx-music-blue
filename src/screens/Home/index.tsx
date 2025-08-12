@@ -15,7 +15,6 @@ interface Props {
 
 
 export default ({ componentId }: Props) => {
-  const isHorizontalMode = useHorizontalMode()
   useEffect(() => {
     setComponentId(COMPONENT_IDS.home, componentId)
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -28,11 +27,7 @@ export default ({ componentId }: Props) => {
 
   return (
     <PageContent>
-      {
-        isHorizontalMode
-          ? <Horizontal />
-          : <Vertical />
-      }
+      <Vertical />
     </PageContent>
   )
 }

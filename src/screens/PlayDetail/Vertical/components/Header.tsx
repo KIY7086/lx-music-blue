@@ -1,6 +1,6 @@
 import { memo, useRef } from 'react'
 
-import { View, StyleSheet } from 'react-native'
+import { View, StyleSheet, TouchableOpacity } from 'react-native'
 
 import { pop } from '@/navigation'
 import StatusBar from '@/components/common/StatusBar'
@@ -14,6 +14,8 @@ import SettingPopup, { type SettingPopupType } from '../../components/SettingPop
 import { useStatusbarHeight } from '@/store/common/hook'
 import Btn from './Btn'
 import TimeoutExitBtn from './TimeoutExitBtn'
+import DragBar from './DragBar'
+import { EllipsisVerticalIcon } from 'react-native-heroicons/outline'
 
 export const HEADER_HEIGHT = scaleSizeH(_HEADER_HEIGHT)
 
@@ -31,7 +33,7 @@ const Title = () => {
   )
 }
 
-export default memo(() => {
+export default memo(({ pageIndex, onClose }: { pageIndex: number, onClose: () => void }) => {
   const popupRef = useRef<SettingPopupType>(null)
   const statusBarHeight = useStatusbarHeight()
 
@@ -43,16 +45,18 @@ export default memo(() => {
   }
 
   return (
-    <View style={{ height: HEADER_HEIGHT + statusBarHeight, paddingTop: statusBarHeight }} nativeID={NAV_SHEAR_NATIVE_IDS.playDetail_header}>
-      <StatusBar />
-      <View style={styles.container}>
-        <Btn icon="chevron-left" onPress={back} />
-        <Title />
-        <TimeoutExitBtn />
-        <Btn icon="slider" onPress={showSetting} />
+    <TouchableOpacity style={{ height: HEADER_HEIGHT + statusBarHeight, paddingTop: statusBarHeight }} onPress={onClose} disabled={pageIndex == 1}>
+      <View style={{ flex: 1 }} nativeID={NAV_SHEAR_NATIVE_IDS.playDetail_header}>
+        <StatusBar />
+        <DragBar visible={pageIndex == 0} onPress={onClose} />
+        <View style={styles.container}>
+          <TimeoutExitBtn />
+          <Title />
+          <Btn icon={EllipsisVerticalIcon} onPress={showSetting} />
+        </View>
+        <SettingPopup ref={popupRef} direction="vertical" />
       </View>
-      <SettingPopup ref={popupRef} direction="vertical" />
-    </View>
+    </TouchableOpacity>
   )
 })
 
@@ -60,18 +64,18 @@ export default memo(() => {
 const styles = StyleSheet.create({
   container: {
     flexDirection: 'row',
-    // justifyContent: 'center',
-    height: '100%',
+    justifyContent: 'space-between',
+    height: HEADER_HEIGHT,
+    alignItems: 'center',
   },
   titleContent: {
     flex: 1,
     paddingHorizontal: 5,
-    // alignItems: 'center',
+    alignItems: 'center',
     justifyContent: 'center',
   },
   title: {
-    // flex: 1,
-    // textAlign: 'center',
+    textAlign: 'center',
   },
   icon: {
     paddingLeft: 4,

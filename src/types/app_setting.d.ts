@@ -1,4 +1,4 @@
-import type { I18n } from '@/lang/i18n'
+import type { I18n } from '@/lang'
 
 declare global {
   namespace LX {
@@ -50,16 +50,6 @@ declare global {
        * 启用首页滑动
        */
       'common.homePageScroll': boolean
-
-      /**
-       * 是否显示返回按钮
-       */
-      'common.showBackBtn': boolean
-
-      /**
-       * 是否显示退出按钮
-       */
-      'common.showExitBtn': boolean
 
       /**
        * 使用系统文件选择器

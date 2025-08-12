@@ -6,7 +6,8 @@ import { createStyle, tipDialog } from '@/utils/tools'
 import { scaleSizeH, scaleSizeW } from '@/utils/pixelRatio'
 import { useTheme } from '@/store/theme/hook'
 import Text from '../Text'
-import { Icon } from '../Icon'
+import { HeroIcon } from '@/components/common/HeroIcon'
+import { QuestionMarkCircleIcon } from 'react-native-heroicons/outline'
 
 export interface CheckBoxProps {
   check: boolean
@@ -62,7 +63,7 @@ export default ({ check, label, children, onChange, helpTitle, helpDesc, disable
     }
     return (helpTitle ?? helpDesc) ? (
       <TouchableOpacity style={styles.helpBtn} onPress={handleShowHelp}>
-        <Icon size={15 * size} name="help" />
+        <HeroIcon icon={QuestionMarkCircleIcon} size={18 * size} />
       </TouchableOpacity>
     ) : null
   }, [helpTitle, helpDesc, size])
@@ -118,8 +119,9 @@ const styles = createStyle({
   },
   helpBtn: {
     // backgroundColor: 'rgba(0, 0, 0, 0.2)',
-    paddingHorizontal: 8,
-    paddingVertical: 3,
+    paddingHorizontal: 5,
+    paddingVertical: 5,
+    marginLeft: -5,
   },
 })
 

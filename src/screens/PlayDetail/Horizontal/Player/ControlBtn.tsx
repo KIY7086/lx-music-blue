@@ -1,5 +1,6 @@
 import { StyleSheet, TouchableOpacity, View } from 'react-native'
-import { Icon } from '@/components/common/Icon'
+import { HeroIcon } from '@/components/common/HeroIcon'
+import { BackwardIcon, ForwardIcon, PauseIcon, PlayIcon } from 'react-native-heroicons/outline'
 import { useTheme } from '@/store/theme/hook'
 // import { useIsPlay } from '@/store/player/hook'
 import { playNext, playPrev, togglePlay } from '@/core/player/player'
@@ -18,7 +19,7 @@ const PrevBtn = ({ size }: { size: number }) => {
   }
   return (
     <TouchableOpacity style={{ ...styles.cotrolBtn, width: size, height: size }} activeOpacity={0.5} onPress={handlePlayPrev}>
-      <Icon name='prevMusic' color={theme['c-button-font']} rawSize={size * 0.7} />
+      <HeroIcon icon={BackwardIcon} color={theme['c-button-font']} rawSize={size * 0.7} />
     </TouchableOpacity>
   )
 }
@@ -29,7 +30,7 @@ const NextBtn = ({ size }: { size: number }) => {
   }
   return (
     <TouchableOpacity style={{ ...styles.cotrolBtn, width: size, height: size }} activeOpacity={0.5} onPress={handlePlayNext}>
-      <Icon name='nextMusic' color={theme['c-button-font']} rawSize={size * 0.7} />
+      <HeroIcon icon={ForwardIcon} color={theme['c-button-font']} rawSize={size * 0.7} />
     </TouchableOpacity>
   )
 }
@@ -39,7 +40,7 @@ const TogglePlayBtn = ({ size }: { size: number }) => {
   const isPlay = useIsPlay()
   return (
     <TouchableOpacity style={{ ...styles.cotrolBtn, width: size, height: size }} activeOpacity={0.5} onPress={togglePlay}>
-      <Icon name={isPlay ? 'pause' : 'play'} color={theme['c-button-font']} rawSize={size * 0.7} />
+      <HeroIcon icon={isPlay ? PauseIcon : PlayIcon} color={theme['c-button-font']} rawSize={size * 0.7} />
     </TouchableOpacity>
   )
 }

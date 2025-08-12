@@ -2,6 +2,7 @@ import { useRef } from 'react'
 import MusicAddModal, { type MusicAddModalType } from '@/components/MusicAddModal'
 import playerState from '@/store/player/state'
 import Btn from './Btn'
+import { PlusIcon } from 'react-native-heroicons/outline'
 
 
 export default () => {
@@ -19,7 +20,7 @@ export default () => {
 
   return (
     <>
-      <Btn icon="add-music" onPress={handleShowMusicAddModal} />
+      <Btn icon={PlusIcon} onPress={handleShowMusicAddModal} />
       <MusicAddModal ref={musicAddModalRef} />
     </>
   )

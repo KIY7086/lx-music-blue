@@ -3,7 +3,7 @@ import type { AppEventTypes } from '@/event/appEvent'
 import type { ListEventTypes } from '@/event/listEvent'
 import type { DislikeEventTypes } from '@/event/dislikeEvent'
 import type { StateEventTypes } from '@/event/stateEvent'
-import type { I18n } from '@/lang/i18n'
+import type { I18n } from '@/lang'
 import type { Buffer as _Buffer } from 'buffer'
 import type { SettingScreenIds } from '@/screens/Home/Views/Setting'
 

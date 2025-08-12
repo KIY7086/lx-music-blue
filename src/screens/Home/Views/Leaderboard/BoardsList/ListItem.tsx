@@ -4,7 +4,8 @@ import { useTheme } from '@/store/theme/hook'
 import Button, { type BtnType } from '@/components/common/Button'
 import { createStyle } from '@/utils/tools'
 import { type BoardItem } from '@/store/leaderboard/state'
-import { Icon } from '@/components/common/Icon'
+import { HeroIcon } from '@/components/common/HeroIcon'
+import { ChevronRightIcon } from 'react-native-heroicons/outline'
 
 // index={index}
 // longPressIndex={longPressIndex}
@@ -44,7 +45,7 @@ export default ({ item, activeId, index, longPressIndex, onBoundChange, onShowMe
     >
       {
         active
-          ? <Icon style={styles.listActiveIcon} name="chevron-right" size={12} color={theme['c-primary-font']} />
+          ? <HeroIcon icon={ChevronRightIcon} style={styles.listActiveIcon} size={12} color={theme['c-primary-font']} />
           : null
       }
       <Text style={styles.listName} size={14} textBreakStrategy="simple" color={active ? theme['c-primary-font-active'] : theme['c-font']} numberOfLines={1}>{item.name}</Text>

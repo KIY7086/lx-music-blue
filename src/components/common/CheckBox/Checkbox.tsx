@@ -7,7 +7,8 @@ import {
   Pressable,
 } from 'react-native'
 
-import { Icon } from '../Icon'
+import { HeroIcon } from '@/components/common/HeroIcon'
+import { StopIcon, CheckIcon, MinusIcon } from 'react-native-heroicons/outline'
 import { createStyle } from '@/utils/tools'
 import { scaleSizeW } from '@/utils/pixelRatio'
 
@@ -37,7 +38,6 @@ export interface Props {
 }
 
 const ANIMATION_DURATION = 200
-const PADDING = scaleSizeW(4)
 
 /**
  * Checkboxes allow the selection of multiple options from a set.
@@ -54,10 +54,6 @@ const Checkbox = ({
 }: Props) => {
   const checked = status === 'checked'
   const indeterminate = status === 'indeterminate'
-
-  const icon = indeterminate
-    ? 'minus-box'
-    : 'checkbox-marked'
 
   const { current: scaleAnim } = React.useRef<Animated.Value>(
     new Animated.Value(checked ? 1 : 0),
@@ -80,6 +76,7 @@ const Checkbox = ({
     }).start()
   }, [checked, scaleAnim])
 
+  const outerSize = 26 * size
 
   return (
     <Pressable
@@ -89,22 +86,29 @@ const Checkbox = ({
       accessibilityRole="checkbox"
       accessibilityState={{ disabled, checked }}
       accessibilityLiveRegion="polite"
-      style={{ ...styles.container, padding: PADDING, marginLeft: -PADDING }}
+      style={styles.container}
     >
-      <Icon
-        allowFontScaling={false}
-        name="checkbox-blank-outline"
-        size={24 * size}
-        color={tintColors.false}
-      />
-      <View style={[StyleSheet.absoluteFill, styles.fillContainer]}>
-        <Animated.View style={{ transform: [{ scale: scaleAnim }] }}>
-          <Icon
-            allowFontScaling={false}
-            name={icon}
-            size={24 * size}
-            color={tintColors.true}
-          />
+      <View style={{ width: outerSize, height: outerSize, alignItems: 'center', justifyContent: 'center' }}>
+        <HeroIcon
+          icon={StopIcon}
+          size={outerSize}
+          color={tintColors.false}
+        />
+        <Animated.View style={{ ...StyleSheet.absoluteFillObject, alignItems: 'center', justifyContent: 'center', transform: [{ scale: scaleAnim }] }}>
+          <View style={{
+            width: outerSize * 0.6,
+            height: outerSize * 0.6,
+            backgroundColor: tintColors.true,
+            borderRadius: 3,
+            alignItems: 'center',
+            justifyContent: 'center',
+          }}>
+            {indeterminate ? (
+              <HeroIcon icon={MinusIcon} size={outerSize * 0.6} color="#fff" />
+            ) : (
+              <HeroIcon icon={CheckIcon} size={outerSize * 0.6} color="#fff" />
+            )}
+          </View>
         </Animated.View>
       </View>
     </Pressable>
@@ -115,15 +119,8 @@ Checkbox.displayName = 'Checkbox'
 
 const styles = createStyle({
   container: {
-    alignItems: 'center',
-    justifyContent: 'center',
     // backgroundColor: 'rgba(0, 0, 0, 0.2)',
-  },
-  fillContainer: {
-    alignItems: 'center',
-    justifyContent: 'center',
   },
 })
 
 export default Checkbox
-

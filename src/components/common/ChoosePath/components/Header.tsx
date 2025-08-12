@@ -1,7 +1,8 @@
 import { memo, useCallback, useEffect, useRef } from 'react'
 import { View, TouchableOpacity } from 'react-native'
 import Text from '@/components/common/Text'
-import { Icon } from '@/components/common/Icon'
+import { HeroIcon } from '@/components/common/HeroIcon'
+import { CpuChipIcon, FolderPlusIcon, ArrowPathIcon } from 'react-native-heroicons/outline'
 import { createStyle } from '@/utils/tools'
 import { getExternalStoragePaths, stat } from '@/utils/fs'
 import { useTheme } from '@/store/theme/hook'
@@ -71,13 +72,13 @@ export default memo(({
         </View>
         <View style={styles.actions}>
           <TouchableOpacity style={styles.actionBtn} onPress={openStorage}>
-            <Icon name="sd-card" color={theme['c-primary-font']} size={22} />
+            <HeroIcon icon={CpuChipIcon} color={theme['c-primary-font']} size={22} />
           </TouchableOpacity>
           <TouchableOpacity style={styles.actionBtn} onPress={handleShowNewFolderModal}>
-            <Icon name="add_folder" color={theme['c-primary-font']} size={22} />
+            <HeroIcon icon={FolderPlusIcon} color={theme['c-primary-font']} size={22} />
           </TouchableOpacity>
           <TouchableOpacity style={styles.actionBtn} onPress={refresh}>
-            <Icon name="available_updates" color={theme['c-primary-font']} size={22} />
+            <HeroIcon icon={ArrowPathIcon} color={theme['c-primary-font']} size={22} />
           </TouchableOpacity>
         </View>
       </View>

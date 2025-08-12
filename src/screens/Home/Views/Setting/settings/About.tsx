@@ -1,15 +1,20 @@
-import { memo } from 'react'
-import { View, TouchableOpacity } from 'react-native'
+import { memo, useState, useEffect } from 'react'
+import { View, TouchableOpacity, StyleSheet } from 'react-native'
 
 import Section from '../components/Section'
+import SubTitle from '../components/SubTitle'
+import Button from '../components/Button'
+import { sizeFormate } from '@/utils'
 // import Button from './components/Button'
 
 import { createStyle, openUrl } from '@/utils/tools'
 // import { showPactModal } from '@/navigation'
 import { useTheme } from '@/store/theme/hook'
 import { useI18n } from '@/lang'
+import { useVersionDownloadProgressUpdated, useVersionInfo } from '@/store/version/hook'
 import Text from '@/components/common/Text'
 import { showPactModal } from '@/core/common'
+import { showModal } from '@/core/version'
 
 // const qqGroupUrl = 'mqqopensdkapi://bizAgent/qm/qr?url=http%3A%2F%2Fqm.qq.com%2Fcgi-bin%2Fqm%2Fqr%3Ffrom%3Dapp%26p%3Dandroid%26jump_from%3Dwebapi%26k%3Du1zyxek8roQAwic44nOkBXtG9CfbAxFw'
 // const qqGroupUrl2 = 'mqqopensdkapi://bizAgent/qm/qr?url=http%3A%2F%2Fqm.qq.com%2Fcgi-bin%2Fqm%2Fqr%3Ffrom%3Dapp%26p%3Dandroid%26jump_from%3Dwebapi%26k%3D-l4kNZ2bPQAuvfCQFFhl1UoibvF5wcrQ'
@@ -142,5 +147,8 @@ const styles = createStyle({
   },
   btn: {
     flexDirection: 'row',
+  },
+  desc: {
+    marginBottom: 8,
   },
 })

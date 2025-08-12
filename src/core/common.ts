@@ -2,7 +2,7 @@ import { hideDesktopLyric } from './desktopLyric'
 import { exitApp as utilExitApp } from '@/utils/nativeModules/utils'
 import { destroy as destroyPlayer } from '@/plugins/player/utils'
 import { initSetting as initAppSetting } from '@/config/setting'
-import { setLanguage as applyLanguage } from '@/lang/i18n'
+import { setLanguage as applyLanguage } from '@/lang'
 
 import settingActions from '@/store/setting/action'
 import settingState from '@/store/setting/state'
