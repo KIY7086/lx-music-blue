@@ -15,7 +15,7 @@
     "bundle-android": "react-native bundle --platform android --dev true --entry-file index.js --bundle-output android/app/src/main/assets/index.android.bundle --assets-dest android/app/src/main/res",
     "build-test": "react-native bundle --platform android --dev true --entry-file index.js --bundle-output index.android.bundle --assets-dest res",
     "pack:android:debug": "./gradlew assembleDebug",
-    "pack": "npm run pack:android",
+    "pack": "yarn pack:android",
     "pack:android": "cd android && gradlew.bat assembleRelease",
     "clear": "cd android && gradlew.bat clean",
     "clear:full": "git clean -fdx -e android/keystore.properties -e android/app/*.keystore",
@@ -23,8 +23,7 @@
     "publish": "node publish"
   },
   "engines": {
-    "node": ">= 18",
-    "npm": ">= 8.5.2"
+    "node": ">= 18"
   },
   "repository": {
     "type": "git",
