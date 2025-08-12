@@ -293,16 +293,17 @@ export default () => {
 const styles = createStyle({
   container: {
     flex: 1,
-    paddingLeft: 20,
-    paddingRight: 20,
+    paddingLeft: 30, // 增加水平内边距
+    paddingRight: 30, // 增加水平内边距
     // backgroundColor: 'rgba(0,0,0,0.1)',
   },
   space: {
-    paddingTop: '100%',
+    paddingTop: '40%', // 调整顶部留白，使其更合理
+    paddingBottom: '40%', // 增加底部留白
   },
   line: {
-    paddingTop: 10,
-    paddingBottom: 10,
+    paddingTop: 15, // 增加行间距
+    paddingBottom: 15, // 增加行间距
     // opacity: 0,
   },
   lineText: {
@@ -317,7 +318,7 @@ const styles = createStyle({
     textAlign: 'center',
     // fontSize: 13,
     // lineHeight: 17,
-    paddingTop: 5,
+    paddingTop: 8, // 增加翻译歌词顶部内边距
     // paddingBottom: 5,
   },
 })

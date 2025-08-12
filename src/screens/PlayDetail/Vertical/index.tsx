@@ -42,41 +42,17 @@ export default memo(({ componentId }: { componentId: string }) => {
   const panResponder = useRef(
     PanResponder.create({
       onStartShouldSetPanResponder: (evt, gestureState) => true,
-      onMoveShouldSetPanResponder: (evt, gestureState) => true,
+      onMoveShouldSetPanResponder: (evt, gestureState) => {
+        // 只在水平滑动距离大于垂直滑动距离时响应，避免拦截垂直滚动
+        return Math.abs(gestureState.dx) > Math.abs(gestureState.dy)
+      },
       onPanResponderMove: (evt, gestureState) => {
-        if (Math.abs(gestureState.dy) > Math.abs(gestureState.dx)) {
-          if (gestureState.dy < 0) return
-          position.setValue(gestureState.dy)
-          transform.setValue(gestureState.dy)
-          opacity.setValue(1 - gestureState.dy / 300)
-        } else {
-          // Horizontal swipe logic can be added here if needed
-        }
+        // 移除垂直滑动动画逻辑
+        // 只处理水平滑动，不进行任何操作，因为 PagerView 会处理
       },
       onPanResponderRelease: (evt, gestureState) => {
-        if (Math.abs(gestureState.dy) > Math.abs(gestureState.dx)) {
-          if (gestureState.dy > 100) {
-            close()
-          } else {
-            Animated.parallel([
-              Animated.timing(position, {
-                toValue: 0,
-                duration: 300,
-                useNativeDriver: true,
-              }),
-              Animated.timing(transform, {
-                toValue: 0,
-                duration: 300,
-                useNativeDriver: true,
-              }),
-              Animated.timing(opacity, {
-                toValue: 1,
-                duration: 300,
-                useNativeDriver: true,
-              }),
-            ]).start()
-          }
-        } else if (Math.abs(gestureState.dx) > 50) {
+        // 移除垂直滑动退出逻辑和动画
+        if (Math.abs(gestureState.dx) > 50) { // 仅处理水平滑动
           if (gestureState.dx > 0) {
             pagerViewRef.current?.setPage(0)
           } else {
@@ -140,6 +116,8 @@ const styles = createStyle({
   container: {
     flex: 1,
     flexDirection: 'column',
+    paddingHorizontal: 20, // 增加水平内边距
+    paddingBottom: 20, // 增加底部内边距
   },
   pagerView: {
     flex: 1,

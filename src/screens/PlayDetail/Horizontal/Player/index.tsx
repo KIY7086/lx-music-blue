@@ -23,7 +23,9 @@ const styles = createStyle({
     flexShrink: 0,
     flexGrow: 1,
     marginLeft: marginLeftRaw,
-    // paddingRight: 15,
+    paddingRight: 15, // 增加右侧内边距
+    paddingTop: 10, // 增加顶部内边距
+    paddingBottom: 10, // 增加底部内边距
     // backgroundColor: 'rgba(0,0,0,0.1)',
   },
 })

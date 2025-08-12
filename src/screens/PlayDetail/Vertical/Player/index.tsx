@@ -26,9 +26,9 @@ const styles = createStyle({
     // paddingTop: progressContentPadding,
     // marginTop: -progressContentPadding,
     // backgroundColor: 'rgba(0, 0, 0, .1)',
-    paddingHorizontal: 15,
-    paddingBottom: 15,
-    paddingTop: 5,
+    paddingHorizontal: 20, // 增加水平内边距
+    paddingBottom: 20, // 增加底部内边距
+    paddingTop: 10, // 增加顶部内边距
     // backgroundColor: AppColors.primary,
     // backgroundColor: 'red',
     flexDirection: 'column',

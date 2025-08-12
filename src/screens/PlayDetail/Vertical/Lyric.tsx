@@ -145,30 +145,17 @@ export default () => {
     if (index < 0) return
     if (flatListRef.current) {
       // console.log('handleScrollToActive', index)
-      if (scrollInfoRef.current && lineRef.current.line - lineRef.current.prevLine == 1) {
-        let offset = listLayoutInfoRef.current.spaceHeight
-        for (let line = 0; line < index; line++) {
-          offset += listLayoutInfoRef.current.lineHeights[line]
-        }
-        offset += (listLayoutInfoRef.current.lineHeights[line] ?? 0) / 2
-        try {
-          scrollCancelRef.current = scrollTo(flatListRef.current, scrollInfoRef.current, offset - scrollInfoRef.current.layoutMeasurement.height * 0.42, 600, () => {
-            scrollCancelRef.current = null
-          })
-        } catch {}
-      } else {
-        if (scrollCancelRef.current) {
-          scrollCancelRef.current()
-          scrollCancelRef.current = null
-        }
-        try {
-          flatListRef.current.scrollToIndex({
-            index,
-            animated: true,
-            viewPosition: 0.42,
-          })
-        } catch {}
+      if (scrollCancelRef.current) {
+        scrollCancelRef.current()
+        scrollCancelRef.current = null
       }
+      try {
+        flatListRef.current.scrollToIndex({
+          index,
+          animated: true,
+          viewPosition: 0.42,
+        })
+      } catch {}
     }
   }
 
@@ -256,15 +243,8 @@ export default () => {
     lineRef.current.line = line
     if (!flatListRef.current || isPauseScrollRef.current) return
 
-    if (line - lineRef.current.prevLine != 1) {
-      handleScrollToActive()
-      return
-    }
-
-    delayScrollTimeout.current = setTimeout(() => {
-      delayScrollTimeout.current = null
-      handleScrollToActive()
-    }, 600)
+    // 移除延迟滚动逻辑，直接调用滚动
+    handleScrollToActive()
   }, [line, handleScrollToActive])
 
   useEffect(() => {
@@ -333,16 +313,17 @@ export default () => {
 const styles = createStyle({
   container: {
     flex: 1,
-    paddingLeft: 20,
-    paddingRight: 20,
+    paddingLeft: 15, // 减小水平内边距
+    paddingRight: 15, // 减小水平内边距
     // backgroundColor: 'rgba(0,0,0,0.1)',
   },
   space: {
-    paddingTop: '100%',
+    paddingTop: 150, // 调整顶部留白，使其更紧凑
+    paddingBottom: 150, // 调整底部留白
   },
   line: {
-    paddingTop: 10,
-    paddingBottom: 10,
+    paddingTop: 8, // 减小行间距
+    paddingBottom: 8, // 减小行间距
     // opacity: 0,
   },
   lineText: {
@@ -357,7 +338,7 @@ const styles = createStyle({
     textAlign: 'center',
     // fontSize: 13,
     // lineHeight: 17,
-    paddingTop: 5,
+    paddingTop: 4, // 减小翻译歌词顶部内边距
     // paddingBottom: 5,
   },
 })

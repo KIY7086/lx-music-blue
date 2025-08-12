@@ -52,6 +52,8 @@ const styles = createStyle({
     flexShrink: 1,
     justifyContent: 'center',
     alignItems: 'center',
+    paddingVertical: 15, // 增加垂直内边距
+    paddingHorizontal: 15, // 增加水平内边距
     // backgroundColor: 'rgba(0,0,0,0.1)',
   },
   content: {
