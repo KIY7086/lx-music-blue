@@ -77,20 +77,12 @@ export const UserAgreement: React.FC<UserAgreementProps> = ({ children }) => {
       </View>
 
       <ScrollView style={styles.content} showsVerticalScrollIndicator={true}>
-        <Text style={[styles.welcomeText, { color: theme['c-primary-font'] }]}>
-          欢迎使用洛雪音乐！
-        </Text>
-
         <Text style={[styles.warningText, { color: '#d11a0aff', borderColor: theme['c-primary'] }]}>
           在使用本软件前，你（使用者）需签署本协议才可继续使用！
         </Text>
 
         <Text style={[styles.sectionContent, { color: theme['c-font-label'] }]}>
           本项目基于 <Text onPress={openLicensePage} style={textLinkStyle}>Apache License 2.0</Text> 许可证发行，以下协议是对于 Apache License 2.0 的补充，如有冲突，以以下协议为准。{'\n'}
-        </Text>
-
-        <Text style={[styles.sectionContent, { color: theme['c-font-label'] }]}>
-          词语约定：本协议中的"本项目"指 LX Music（洛雪音乐）移动版项目；"使用者"指签署本协议的使用者；"官方音乐平台"指对本项目内置的包括酷我、酷狗、咪咕等音乐源的官方平台统称；"版权数据"指包括但不限于图像、音频、名字等在内的他人拥有所属版权的数据。{'\n'}
         </Text>
 
         <Text style={[styles.sectionTitle, { color: theme['c-primary-font'] }]}>
@@ -221,12 +213,6 @@ const styles = createStyle({
   content: {
     flex: 1,
     paddingHorizontal: 24,
-  },
-  welcomeText: {
-    fontSize: 18,
-    fontWeight: '600',
-    textAlign: 'center',
-    marginBottom: 16,
   },
   warningText: {
     fontSize: 14,
