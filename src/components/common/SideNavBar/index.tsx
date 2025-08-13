@@ -1,5 +1,5 @@
 import { memo, useCallback, useEffect, useState } from 'react'
-import { View, TouchableOpacity, Dimensions } from 'react-native'
+import { View, TouchableOpacity, StyleSheet, Dimensions } from 'react-native'
 import { createStyle } from '@/utils/tools'
 import { useTheme } from '@/store/theme/hook'
 import commonState from '@/store/common/state'
@@ -58,7 +58,6 @@ const NavButton = ({ id, activeId, onNavChange }: {
   )
 }
 
-
 export default memo(() => {
   const [activeId, setActiveId] = useState(commonState.navActiveId)
   const theme = useTheme()
@@ -87,36 +86,39 @@ export default memo(() => {
   }, [activeId])
 
   const isLandscape = dimensions.width > dimensions.height
-  if (isLandscape) return null
+
+  if (!isLandscape) return null
 
   return (
-    <View style={{ ...styles.container, backgroundColor: theme['c-content-background'], borderTopColor: 'rgba(0,0,0,0.1)' }}>
-      {
-        NAV_IDS.map(id => (
-          <NavButton
-            key={id}
-            id={id}
-            activeId={activeId}
-            onNavChange={handleNavChange}
-          />
-        ))
-      }
+    <View style={{ ...styles.container, backgroundColor: theme['c-content-background'], borderRightColor: 'rgba(0,0,0,0.1)' }}>
+      {NAV_IDS.map(id => (
+        <NavButton
+          key={id}
+          id={id}
+          activeId={activeId}
+          onNavChange={handleNavChange}
+        />
+      ))}
     </View>
   )
 })
 
 const styles = createStyle({
   container: {
-    flexDirection: 'row',
-    justifyContent: 'space-around',
-    paddingBottom: 2,
-    height: 56,
+    flexDirection: 'column',
+    justifyContent: 'flex-start',
+    alignItems: 'center',
+    width: 56,
+    paddingTop: 20,
+    paddingBottom: 20,
+    borderRightWidth: 1,
   },
   navItem: {
     alignItems: 'center',
     justifyContent: 'center',
-    minWidth: 50,
-    paddingTop: 10,
-    paddingBottom: 10,
+    width: 40,
+    height: 40,
+    marginVertical: 6,
+    borderRadius: 20,
   },
 })
