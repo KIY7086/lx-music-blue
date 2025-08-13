@@ -7,9 +7,11 @@ import Display from './settings/Display'
 import Backup from './settings/Backup'
 import Other from './settings/Other'
 import About from './settings/About'
+import Source from './settings/Source'
 
 export const SETTING_SCREENS = [
   'basic',
+  'source',
   'display',
   'player',
   'lyric_desktop',
@@ -48,6 +50,7 @@ const Main = forwardRef<MainType, {}>((props, ref) => {
       case 'backup': return <Backup />
       case 'other': return <Other />
       case 'about': return <About />
+      case 'source': return <Source />
       case 'basic':
       default: return <Basic />
     }

@@ -107,7 +107,7 @@ export const NAV_MENUS = [
 export type NAV_ID_Type = typeof NAV_MENUS[number]['id']
 
 export const LXM_FILE_EXT_RXP = ['json', 'lxmc', 'bin']
-export const USER_API_SOURCE_FILE_EXT_RXP = ['js']
+export const USER_API_SOURCE_FILE_EXT_RXP = ['js', 'zip']
 
 export const MUSIC_TOGGLE_MODE = {
   listLoop: 'listLoop', // 列表循环

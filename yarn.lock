@@ -5610,6 +5610,7 @@ __metadata:
     react-native-svg: "npm:^15.12.1"
     react-native-track-player: "github:lyswhut/react-native-track-player#75c097a4a46bea19970540bbc1bd38527ea73cde"
     react-native-vector-icons: "npm:^10.2.0"
+    react-native-zip-archive: "npm:^7.0.2"
     react-redux: "npm:^9.2.0"
     typescript: "npm:^5.8.3"
   languageName: unknown
@@ -6988,6 +6989,16 @@ __metadata:
     fa6-upgrade: bin/fa6-upgrade.sh
     generate-icon: bin/generate-icon.js
   checksum: 10c0/247804affcf74906062ed088d755c3d4632e3f2b62c38226ccb05e2a8dc42414c2378040a4acb474704bed09cd06cb285770c765ffff67fb2d3b896cd46e76ca
+  languageName: node
+  linkType: hard
+
+"react-native-zip-archive@npm:^7.0.2":
+  version: 7.0.2
+  resolution: "react-native-zip-archive@npm:7.0.2"
+  peerDependencies:
+    react: ">=16.8.6"
+    react-native: ">=0.60.0"
+  checksum: 10c0/d769a4028c2165d5d428a0c32247d486b460a68d740abc043e435cadf98e73b7b6d9b0f9888251af17baeb40093aac775ed6dadfcf5eb0fb385bf38816e69626
   languageName: node
   linkType: hard
 

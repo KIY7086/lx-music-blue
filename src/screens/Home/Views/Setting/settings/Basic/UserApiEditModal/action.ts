@@ -2,24 +2,101 @@ import { importUserApi } from '@/core/userApi'
 import { readFile } from '@/utils/fs'
 import { log } from '@/utils/log'
 import { toast } from '@/utils/tools'
+import { unzipFile, findAllJsFiles, cleanupDirectory, fileExists } from '@/utils/zip'
 
+// 全局进度状态管理
+let progressCallback: ((progress: { visible: boolean; current: number; total: number; message: string }) => void) | null = null
 
-export const handleImportScript = async(script: string) => {
-  await importUserApi(script).then(() => {
-    toast(global.i18n.t('user_api_import_success_tip'))
-  }).catch((error: any) => {
+export const setProgressCallback = (callback: (progress: { visible: boolean; current: number; total: number; message: string }) => void) => {
+  progressCallback = callback
+}
+
+// 检查文件是否为ZIP格式
+const isZipFile = (path: string): boolean => {
+  return path.toLowerCase().endsWith('.zip')
+}
+
+// 检查文件是否为JS格式
+const isJsFile = (path: string): boolean => {
+  return path.toLowerCase().endsWith('.js')
+}
+
+const updateProgress = (visible: boolean, current: number = 0, total: number = 0, message: string = '') => {
+  if (progressCallback) {
+    progressCallback({ visible, current, total, message })
+  }
+}
+
+export const handleImportScript = async(script: string, fileName?: string) => {
+  await importUserApi(script).catch((error: any) => {
     log.error(error.stack)
-    toast(global.i18n.t('user_api_import_failed_tip', { message: error.message }), 'long')
+    throw error
   })
 }
 
-export const handleImportLocalFile = (path: string) => {
-  // toast(global.i18n.t('setting_backup_part_import_list_tip_unzip'))
-  void readFile(path).then(async script => {
-    if (script == null) throw new Error('Read file failed')
-    void handleImportScript(script)
-  }).catch((error: any) => {
-    toast(global.i18n.t('user_api_import_failed_tip', { message: error.message }), 'long')
-  })
+export const handleImportLocalFile = async (path: string) => {
+  let tempDir = ''
+  
+  try {
+    updateProgress(true, 0, 0, '正在检查文件...')
+    
+    if (!(await fileExists(path))) {
+      throw new Error('文件不存在')
+    }
+    
+    let jsFiles: string[] = []
+    
+    if (isZipFile(path)) {
+      updateProgress(true, 0, 0, '正在解压ZIP文件...')
+      tempDir = await unzipFile(path)
+      jsFiles = await findAllJsFiles(tempDir)
+    } else if (isJsFile(path)) {
+      jsFiles = [path]
+    } else {
+      jsFiles = await findAllJsFiles(path)
+    }
+    
+    if (jsFiles.length === 0) {
+      updateProgress(false)
+      return
+    }
+    
+    let successCount = 0
+    let failCount = 0
+    
+    for (let i = 0; i < jsFiles.length; i++) {
+      const filePath = jsFiles[i]
+      const fileName = filePath.split('/').pop() || '未知文件'
+      
+      updateProgress(true, i + 1, jsFiles.length, `正在导入: ${fileName}`)
+      
+      try {
+        const script = await readFile(filePath)
+        if (script != null) {
+          await handleImportScript(script, fileName)
+          successCount++
+        }
+      } catch (error: any) {
+        log.error(`导入文件失败: ${fileName}`, error)
+        failCount++
+      }
+    }
+    
+    updateProgress(false)
+    
+    if (tempDir) {
+      await cleanupDirectory(tempDir).catch(log.error)
+    }
+    
+    if (failCount > 0) {
+      toast(`${failCount} 个文件导入失败`)
+    }
+    
+  } catch (error: any) {
+    updateProgress(false)
+    if (tempDir) {
+      await cleanupDirectory(tempDir).catch(log.error)
+    }
+    toast(`导入失败: ${error.message}`)
+  }
 }
-

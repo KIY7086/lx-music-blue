@@ -38,7 +38,7 @@ export default memo(() => {
 
   return (
     <View style={styles.container}>
-      <Text style={styles.text}>{t('setting_theme_auto_switch' as any)}</Text>
+      <Text style={styles.text}>{t('setting_basic_theme_auto_theme')}</Text>
       <CheckBox
         check={autoTheme}
         onChange={handleToggle}

@@ -37,7 +37,7 @@ const ListItem = memo(({ id, activeId, onPress }: {
           : null
       }
       <TouchableOpacity style={styles.listName} onPress={handlePress}>
-        <Text numberOfLines={1} size={16} color={active ? theme['c-primary-font'] : theme['c-font']}>{t(`setting_${id}`)}</Text>
+        <Text numberOfLines={1} size={16} color={active ? theme['c-primary-font'] : theme['c-font']}>{t(`setting_${id}` as any)}</Text>
       </TouchableOpacity>
     </View>
   )

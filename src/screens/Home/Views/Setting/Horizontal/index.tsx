@@ -10,12 +10,10 @@ const styles = createStyle({
   container: {
     flex: 1,
     flexDirection: 'row',
-    borderTopWidth: BorderWidths.normal,
   },
   nav: {
     height: '100%',
     width: '22%',
-    borderRightWidth: BorderWidths.normal,
   },
   main: {
     paddingLeft: 15,

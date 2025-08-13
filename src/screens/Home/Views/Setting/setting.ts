@@ -4,6 +4,10 @@ export const NAV_MENUS = [
     key: 'setting_basic',
   },
   {
+    id: 'source',
+    key: 'setting_basic_source',
+  },
+  {
     id: 'display',
     key: 'setting_display',
   },
