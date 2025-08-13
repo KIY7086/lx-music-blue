@@ -10,12 +10,14 @@ import { HEADER_HEIGHT } from './components/Header'
 import Image from '@/components/common/Image'
 import { useStatusbarHeight } from '@/store/common/hook'
 import commonState from '@/store/common/state'
-
+import Text from '@/components/common/Text'
+import { useTheme } from '@/store/theme/hook'
 
 export default ({ componentId }: { componentId: string }) => {
   const musicInfo = usePlayerMusicInfo()
   const { width: winWidth, height: winHeight } = useWindowSize()
   const statusBarHeight = useStatusbarHeight()
+  const theme = useTheme()
 
   const [animated, setAnimated] = useState(!!commonState.componentIds.playDetail)
   const [pic, setPic] = useState(musicInfo.pic)
@@ -26,7 +28,6 @@ export default ({ componentId }: { componentId: string }) => {
   useNavigationComponentDidAppear(componentId, () => {
     setAnimated(true)
   })
-  // console.log('render pic')
 
   const style = useMemo(() => {
     const imgWidth = Math.min(winWidth * 0.8, (winHeight - statusBarHeight - HEADER_HEIGHT) * 0.5)
@@ -39,8 +40,12 @@ export default ({ componentId }: { componentId: string }) => {
 
   return (
     <View style={styles.container}>
-      <View style={{ ...styles.content, elevation: animated ? 3 : 0 }}>
+      <View style={styles.content}>
         <Image url={pic} nativeID={NAV_SHEAR_NATIVE_IDS.playDetail_pic} style={style} />
+        <View style={styles.musicInfo}>
+          <Text numberOfLines={1} style={styles.musicName} size={30}>{musicInfo.name}</Text>
+          <Text numberOfLines={1} style={styles.musicSinger} size={20} color={theme['c-font-label']}>{musicInfo.singer}</Text>
+        </View>
       </View>
     </View>
   )
@@ -60,5 +65,19 @@ const styles = createStyle({
     // elevation: 3,
     backgroundColor: 'rgba(0,0,0,0)',
     borderRadius: 4,
+    alignItems: 'flex-start',
+  },
+  musicInfo: {
+    marginTop: 20,
+    alignItems: 'flex-start',
+    paddingLeft: 4,
+  },
+  musicName: {
+    fontWeight: 'bold',
+    marginBottom: 4,
+  },
+  musicSinger: {
+    fontSize: 16,
+    paddingLeft: 2,
   },
 })

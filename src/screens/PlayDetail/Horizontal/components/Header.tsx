@@ -22,7 +22,6 @@ const Title = () => {
   const theme = useTheme()
   const musicInfo = usePlayerMusicInfo()
 
-
   return (
     <View style={styles.titleContent}>
       <Text numberOfLines={1} style={styles.title} size={14}>{musicInfo.name}</Text>
@@ -45,7 +44,7 @@ export default memo(() => {
     <View style={{ height: HEADER_HEIGHT }} nativeID={NAV_SHEAR_NATIVE_IDS.playDetail_header}>
       <View style={styles.container}>
         <TouchableOpacity onPress={back} style={{ ...styles.button, width: HEADER_HEIGHT }}>
-          <HeroIcon icon={ChevronLeftIcon} size={18} />
+          <HeroIcon icon={ChevronLeftIcon} size={24} />
         </TouchableOpacity>
         <Title />
         <DesktopLyricBtn />
@@ -65,6 +64,7 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     // justifyContent: 'center',
     height: '100%',
+    paddingHorizontal: 15, // 增加左右padding
   },
   button: {
     justifyContent: 'center',
@@ -76,6 +76,7 @@ const styles = StyleSheet.create({
     flex: 1,
     // alignItems: 'center',
     justifyContent: 'center',
+    alignItems: 'center',
   },
   title: {
     // flex: 1,

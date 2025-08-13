@@ -13,7 +13,6 @@ import Image from '@/components/common/Image'
 import { useStatusbarHeight } from '@/store/common/hook'
 import commonState from '@/store/common/state'
 
-
 export default memo(({ componentId }: { componentId: string }) => {
   const musicInfo = usePlayerMusicInfo()
   const { width: winWidth, height: winHeight } = useWindowSize()
@@ -36,7 +35,7 @@ export default memo(({ componentId }: { componentId: string }) => {
 
   return (
     <View style={{ ...styles.container, height: contentHeight }}>
-      <View style={{ ...styles.content, elevation: animated ? 3 : 0 }}>
+      <View style={styles.content}>
         <Image url={pic} nativeID={NAV_SHEAR_NATIVE_IDS.playDetail_pic} style={{
           width: imgWidth,
           height: imgWidth,
@@ -53,14 +52,15 @@ const styles = createStyle({
     flexGrow: 0,
     justifyContent: 'center',
     alignItems: 'center',
-    paddingVertical: 15, // 增加垂直内边距
-    paddingHorizontal: 15, // 增加水平内边距
     // backgroundColor: 'rgba(0,0,0,0.1)',
     overflow: 'hidden',
+    marginTop: 10,
+    marginRight: 14,
   },
   content: {
     // elevation: 3,
     backgroundColor: 'rgba(0,0,0,0)',
     borderRadius: 4,
+    alignItems: 'center',
   },
 })

@@ -35,33 +35,6 @@ export default memo(({ componentId }: { componentId: string }) => {
   const [isKeepAwake, setIsKeepAwake] = useState(false)
   const [pageScrollState, setPageScrollState] = useState<'idle' | 'dragging' | 'settling'>('idle')
   const pagerViewRef = useRef<PagerView>(null)
-  const position = useRef(new Animated.Value(0)).current
-  const transform = useRef(new Animated.Value(0)).current
-  const opacity = useRef(new Animated.Value(1)).current
-
-  const panResponder = useRef(
-    PanResponder.create({
-      onStartShouldSetPanResponder: (evt, gestureState) => true,
-      onMoveShouldSetPanResponder: (evt, gestureState) => {
-        // 只在水平滑动距离大于垂直滑动距离时响应，避免拦截垂直滚动
-        return Math.abs(gestureState.dx) > Math.abs(gestureState.dy)
-      },
-      onPanResponderMove: (evt, gestureState) => {
-        // 移除垂直滑动动画逻辑
-        // 只处理水平滑动，不进行任何操作，因为 PagerView 会处理
-      },
-      onPanResponderRelease: (evt, gestureState) => {
-        // 移除垂直滑动退出逻辑和动画
-        if (Math.abs(gestureState.dx) > 50) { // 仅处理水平滑动
-          if (gestureState.dx > 0) {
-            pagerViewRef.current?.setPage(0)
-          } else {
-            pagerViewRef.current?.setPage(1)
-          }
-        }
-      },
-    }),
-  ).current
   useScreenKeepAwake(isKeepAwake)
 
   const close = () => {
@@ -83,14 +56,7 @@ export default memo(({ componentId }: { componentId: string }) => {
 
 
   return (
-    <Animated.View
-      style={{
-        flex: 1,
-        transform: [{ translateY: transform }],
-        opacity,
-      }}
-      {...panResponder.panHandlers}
-    >
+    <View style={{ flex: 1 }}>
       <Header pageIndex={pageIndex} onClose={close} />
       <View style={styles.container}>
         <PagerView
@@ -108,7 +74,7 @@ export default memo(({ componentId }: { componentId: string }) => {
         </PagerView>
         <Player />
       </View>
-    </Animated.View>
+    </View>
   )
 })
 

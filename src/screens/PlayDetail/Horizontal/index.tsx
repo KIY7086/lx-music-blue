@@ -55,21 +55,16 @@ const styles = createStyle({
   container: {
     flex: 1,
     flexDirection: 'row',
-    paddingHorizontal: 20, // 增加水平内边距
   },
   left: {
     flex: 1,
     width: '48%', // 调整宽度比例，给右侧留出更多空间
-    paddingBottom: 20, // 增加底部内边距
-    paddingRight: 10, // 增加右侧内边距
     // backgroundColor: 'rgba(0,0,0,0.1)',
   },
   leftContent: {
     flexShrink: 1,
     flexGrow: 0,
     marginLeft: marginLeftRaw,
-    paddingTop: 10, // 增加顶部内边距
-    paddingBottom: 10, // 增加底部内边距
     // flexDirection: 'row',
     // backgroundColor: 'rgba(0,0,0,0.1)',
     // alignItems: 'center',
@@ -78,7 +73,6 @@ const styles = createStyle({
     width: '52%', // 调整宽度比例
     flexGrow: 0,
     flexShrink: 0,
-    paddingLeft: 10, // 增加左侧内边距
   },
   controlBtn: {
     flex: 1,

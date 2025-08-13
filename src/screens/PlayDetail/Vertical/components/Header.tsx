@@ -4,9 +4,6 @@ import { View, StyleSheet, TouchableOpacity } from 'react-native'
 
 import { pop } from '@/navigation'
 import StatusBar from '@/components/common/StatusBar'
-import { useTheme } from '@/store/theme/hook'
-import { usePlayerMusicInfo } from '@/store/player/hook'
-import Text from '@/components/common/Text'
 import { scaleSizeH } from '@/utils/pixelRatio'
 import { HEADER_HEIGHT as _HEADER_HEIGHT, NAV_SHEAR_NATIVE_IDS } from '@/config/constant'
 import commonState from '@/store/common/state'
@@ -15,19 +12,14 @@ import { useStatusbarHeight } from '@/store/common/hook'
 import Btn from './Btn'
 import TimeoutExitBtn from './TimeoutExitBtn'
 import { EllipsisVerticalIcon } from 'react-native-heroicons/outline'
+import DownArrowIcon from '@/components/common/DownArrowIcon'
 
 export const HEADER_HEIGHT = scaleSizeH(_HEADER_HEIGHT)
 
-
 const Title = () => {
-  const theme = useTheme()
-  const musicInfo = usePlayerMusicInfo()
-
-
   return (
     <View style={styles.titleContent}>
-      <Text numberOfLines={1} style={styles.title}>{musicInfo.name}</Text>
-      <Text numberOfLines={1} style={styles.title} size={12} color={theme['c-font-label']}>{musicInfo.singer}</Text>
+      <DownArrowIcon size={50} />
     </View>
   )
 }
@@ -44,7 +36,7 @@ export default memo(({ pageIndex, onClose }: { pageIndex: number, onClose: () =>
   }
 
   return (
-    <TouchableOpacity style={{ height: HEADER_HEIGHT + statusBarHeight, paddingTop: statusBarHeight }} onPress={onClose} disabled={pageIndex == 1}>
+    <TouchableOpacity style={{ height: HEADER_HEIGHT + statusBarHeight, paddingTop: statusBarHeight }} onPress={onClose}>
       <View style={{ flex: 1 }} nativeID={NAV_SHEAR_NATIVE_IDS.playDetail_header}>
         <StatusBar />
         <View style={styles.container}>
@@ -65,6 +57,8 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between',
     height: HEADER_HEIGHT,
     alignItems: 'center',
+    paddingHorizontal: 24, // 增加左右padding
+    paddingTop: 10,
   },
   titleContent: {
     flex: 1,

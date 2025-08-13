@@ -4,7 +4,6 @@ import PageContent from '@/components/PageContent'
 import { setComponentId } from '@/core/common'
 import { COMPONENT_IDS } from '@/config/constant'
 import Vertical from './Vertical'
-import Horizontal from './Horizontal'
 import { navigations } from '@/navigation'
 import settingState from '@/store/setting/state'
 

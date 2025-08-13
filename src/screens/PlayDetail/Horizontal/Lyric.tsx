@@ -221,6 +221,11 @@ export default () => {
       return
     }
 
+    if (line - lineRef.current.prevLine != 1) {
+      handleScrollToActive()
+      return
+    }
+
     delayScrollTimeout.current = setTimeout(() => {
       delayScrollTimeout.current = null
       handleScrollToActive()
@@ -320,5 +325,13 @@ const styles = createStyle({
     // lineHeight: 17,
     paddingTop: 8, // 增加翻译歌词顶部内边距
     // paddingBottom: 5,
+  },
+  progressContainer: {
+    position: 'absolute',
+    bottom: 0,
+    left: 0,
+    right: 0,
+    paddingHorizontal: 30,
+    paddingBottom: 20,
   },
 })

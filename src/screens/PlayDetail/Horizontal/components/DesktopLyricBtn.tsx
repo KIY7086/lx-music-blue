@@ -5,7 +5,8 @@ import { memo, useRef } from 'react'
 import { toggleDesktopLyricLock } from '@/core/desktopLyric'
 import { updateSetting } from '@/core/common'
 import settingState from '@/store/setting/state'
-
+import { MusicalNoteIcon, MusicalNoteIcon as MusicalNoteIconOutline } from 'react-native-heroicons/outline'
+import { MusicalNoteIcon as MusicalNoteIconSolid } from 'react-native-heroicons/solid'
 
 export default memo(() => {
   const enabledLyric = useSettingValue('desktopLyric.enable')
@@ -20,9 +21,11 @@ export default memo(() => {
     })
   }
 
+  const LyricIcon = enabledLyric ? MusicalNoteIconSolid : MusicalNoteIconOutline
+
   return (
     <>
-      <Btn icon={enabledLyric ? 'lyric-on' : 'lyric-off'} onPress={update} onLongPress={updateLock} />
+      <Btn icon={LyricIcon} onPress={update} onLongPress={updateLock} />
       <DesktopLyricEnable ref={desktopLyricEnableRef} />
     </>
   )
