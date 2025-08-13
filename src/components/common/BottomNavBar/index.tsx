@@ -110,7 +110,8 @@ const styles = createStyle({
     flexDirection: 'row',
     justifyContent: 'space-around',
     paddingBottom: 2,
-    height: 56,
+    height: 50,
+    paddingHorizontal: 10,
   },
   navItem: {
     alignItems: 'center',

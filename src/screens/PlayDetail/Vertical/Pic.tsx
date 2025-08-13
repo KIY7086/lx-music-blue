@@ -43,8 +43,8 @@ export default ({ componentId }: { componentId: string }) => {
       <View style={styles.content}>
         <Image url={pic} nativeID={NAV_SHEAR_NATIVE_IDS.playDetail_pic} style={style} />
         <View style={styles.musicInfo}>
-          <Text numberOfLines={1} style={styles.musicName} size={30}>{musicInfo.name}</Text>
-          <Text numberOfLines={1} style={styles.musicSinger} size={20} color={theme['c-font-label']}>{musicInfo.singer}</Text>
+          <Text numberOfLines={1} style={styles.musicName} size={24}>{musicInfo.name}</Text>
+          <Text numberOfLines={1} style={styles.musicSinger} size={16} color={theme['c-font-label']}>{musicInfo.singer}</Text>
         </View>
       </View>
     </View>
@@ -57,8 +57,6 @@ const styles = createStyle({
     flexShrink: 1,
     justifyContent: 'center',
     alignItems: 'center',
-    paddingVertical: 15, // 增加垂直内边距
-    paddingHorizontal: 15, // 增加水平内边距
     // backgroundColor: 'rgba(0,0,0,0.1)',
   },
   content: {
@@ -70,14 +68,12 @@ const styles = createStyle({
   musicInfo: {
     marginTop: 20,
     alignItems: 'flex-start',
-    paddingLeft: 4,
   },
   musicName: {
     fontWeight: 'bold',
     marginBottom: 4,
   },
   musicSinger: {
-    fontSize: 16,
     paddingLeft: 2,
   },
 })

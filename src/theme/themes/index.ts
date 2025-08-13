@@ -1,4 +1,5 @@
 /* eslint-disable @typescript-eslint/no-var-requires */
+import { Appearance } from 'react-native'
 import { getUserTheme, saveUserTheme } from '@/utils/data'
 import themes from '@/theme/themes/themes'
 import settingState from '@/store/setting/state'
@@ -86,7 +87,28 @@ export const buildActiveThemeColors = (theme: LX.Theme): LX.ActiveTheme => {
 // }
 // type IDS = LocalTheme['id']
 export const getTheme = async() => {
-  const themeId = 'blue_plus'
+  let themeId: LX.Theme['id']
+  if (settingState.setting['theme.autoTheme']) {
+    const systemColorScheme = Appearance.getColorScheme()
+    themeId = systemColorScheme === 'dark'
+      ? settingState.setting['theme.darkId']
+      : settingState.setting['theme.lightId']
+  } else {
+    themeId = settingState.setting['theme.id']
+  }
+
   const theme: LocalTheme | undefined = themes.find(theme => theme.id == themeId)
   return theme as LocalTheme
 }
+
+Appearance.addChangeListener(({ colorScheme }) => {
+  if (!settingState.setting['theme.autoTheme']) return
+  const themeId = colorScheme === 'dark'
+    ? settingState.setting['theme.darkId']
+    : settingState.setting['theme.lightId']
+  const theme = themes.find(t => t.id === themeId)
+  if (theme) {
+    themeState.theme = buildActiveThemeColors(theme)
+    global.state_event.themeUpdated(themeState.theme)
+  }
+})

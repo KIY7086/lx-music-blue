@@ -68,10 +68,10 @@ const defaultSetting: LX.AppSetting = {
 
   'sync.enable': false,
 
-  // 'theme.id': 'blue_plus',
-  'theme.id': 'green',
-  'theme.lightId': 'green',
-  'theme.darkId': 'black',
+  'theme.id': 'libadwaita_light',
+  'theme.lightId': 'libadwaita_light',
+  'theme.darkId': 'libadwaita_dark',
+  'theme.autoTheme': false,
   'theme.hideBgDark': false,
   'theme.dynamicBg': false,
   'theme.fontShadow': false,

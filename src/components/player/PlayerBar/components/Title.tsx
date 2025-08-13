@@ -37,8 +37,8 @@ export default ({ isHome }: { isHome: boolean }) => {
 
   return (
     <TouchableOpacity style={styles.container} onLongPress={handleLongPress} onPress={handlePress} activeOpacity={0.7} >
-      <Text color={theme['c-font']} size={18} style={{ fontWeight: 'bold' }} numberOfLines={1}>{musicName}</Text>
-      <Text color={theme['c-font-label']} size={14} numberOfLines={1}>{singer}</Text>
+      <Text color={theme['c-font']} size={16} style={{ fontWeight: 'bold' }} numberOfLines={1}>{musicName}</Text>
+      <Text color={theme['c-font-label']} size={12} numberOfLines={1}>{singer}</Text>
     </TouchableOpacity>
   )
 }
@@ -66,10 +66,10 @@ export default ({ isHome }: { isHome: boolean }) => {
 const styles = createStyle({
   container: {
     width: '100%',
+    height: '100%',
     paddingHorizontal: 2,
     justifyContent: 'center',
-    paddingBottom: 4
-    // height: '50%',
-    // backgroundColor: 'rgba(0, 0, 0, .1)',
+    gap: 2,
+    paddingBottom: 3,
   },
 })

@@ -295,6 +295,42 @@ const defaultThemes = [
       'c-badge-tertiary': 'var(c-primary-light-100)',
     },
   },
+  {
+    id: 'libadwaita_light',
+    name: 'Libadwaita 浅色',
+    isDark: false,
+    config: {
+      primary: 'rgb(53, 132, 228)',
+      font: 'rgb(33, 33, 33)',
+      'c-app-background': 'rgba(255, 255, 255, 0.9)',
+      'c-main-background': 'rgba(255, 255, 255, 1)',
+      'bg-image': '',
+      'bg-image-position': 'center',
+      'bg-image-size': 'cover',
+
+      'c-badge-primary': 'var(c-primary)',
+      'c-badge-secondary': 'var(c-primary-dark-100)',
+      'c-badge-tertiary': 'var(c-primary-dark-200)',
+    },
+  },
+  {
+    id: 'libadwaita_dark',
+    name: 'Libadwaita 深色',
+    isDark: true,
+    config: {
+      primary: 'rgb(53, 132, 228)',
+      font: 'rgb(229, 229, 229)',
+      'c-app-background': 'rgba(30, 30, 30, 0.9)',
+      'c-main-background': 'rgba(19, 19, 19, 0.95)',
+      'bg-image': '',
+      'bg-image-position': 'center',
+      'bg-image-size': 'cover',
+
+      'c-badge-primary': 'var(c-primary-light-200)',
+      'c-badge-secondary': 'var(c-primary-light-100)',
+      'c-badge-tertiary': 'var(c-primary)',
+    },
+  },
 ]
 
 const themes = defaultThemes.map(({ config: { primary, font, ...extInfo }, ...themeInfo }) => {

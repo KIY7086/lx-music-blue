@@ -69,9 +69,8 @@ export default memo(({ isHome = false }: { isHome?: boolean }) => {
 const styles = createStyle({
   container: {
     width: '100%',
-    height: 72,
-    paddingVertical: 12,
-    paddingHorizontal: 12,
+    height: 60,
+    paddingHorizontal: 8,
     flexDirection: 'row',
     alignItems: 'center',
   },

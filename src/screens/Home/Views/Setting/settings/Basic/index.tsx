@@ -13,6 +13,7 @@ import IsHomePageScroll from './IsHomePageScroll'
 import IsUseSystemFileSelector from './IsUseSystemFileSelector'
 import IsAlwaysKeepStatusbarHeight from './IsAlwaysKeepStatusbarHeight'
 import DrawerLayoutPosition from './DrawerLayoutPosition'
+import ThemeSettings from '../Theme'
 import { useI18n } from '@/lang'
 
 export default memo(() => {
@@ -33,6 +34,7 @@ export default memo(() => {
       <ShareType />
       <Source />
       <SourceName />
+      <ThemeSettings />
     </Section>
   )
 })

@@ -77,6 +77,11 @@ declare global {
       'theme.darkId': string
 
       /**
+       * 是否跟随系统主题
+       */
+      'theme.autoTheme': boolean
+
+      /**
        * 隐藏黑色主题背景
        */
       'theme.hideBgDark': boolean
@@ -277,13 +282,13 @@ declare global {
       'desktopLyric.style.lyricUnplayColor': string
 
       /**
-        * 桌面歌词已播放字体颜色
-        */
+         * 桌面歌词已播放字体颜色
+         */
       'desktopLyric.style.lyricPlayedColor': string
 
       /**
-        * 桌面歌词字体阴影颜色
-        */
+         * 桌面歌词字体阴影颜色
+         */
       'desktopLyric.style.lyricShadowColor': string
 
       /**
@@ -338,4 +343,3 @@ declare global {
     }
   }
 }
-
