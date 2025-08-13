@@ -13,13 +13,15 @@ import Btn from './Btn'
 import TimeoutExitBtn from './TimeoutExitBtn'
 import { EllipsisVerticalIcon } from 'react-native-heroicons/outline'
 import DownArrowIcon from '@/components/common/DownArrowIcon'
+import { useTheme } from '@/store/theme/hook'
 
 export const HEADER_HEIGHT = scaleSizeH(_HEADER_HEIGHT)
 
 const Title = () => {
+  const theme = useTheme()
   return (
     <View style={styles.titleContent}>
-      <DownArrowIcon size={50} />
+      <DownArrowIcon size={50} color={theme['c-primary-alpha-300']} />
     </View>
   )
 }

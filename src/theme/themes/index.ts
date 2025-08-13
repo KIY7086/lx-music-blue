@@ -61,7 +61,7 @@ export const buildActiveThemeColors = (theme: LX.Theme): LX.ActiveTheme => {
     'c-primary-background-hover': theme.config.themeColors['c-primary-light-300-alpha-800'],
     'c-primary-background-active': theme.config.themeColors['c-primary-light-100-alpha-800'],
     'c-primary-input-background': theme.config.themeColors['c-primary-light-400-alpha-700'],
-    'c-button-font': theme.config.themeColors['c-primary-alpha-100'],
+    'c-button-font': theme.isDark ? theme.config.themeColors['c-100'] : theme.config.themeColors['c-850'],
     'c-button-font-selected': theme.config.themeColors['c-primary-dark-100-alpha-100'],
     'c-button-background': theme.config.themeColors['c-primary-light-400-alpha-700'],
     'c-button-background-selected': theme.config.themeColors['c-primary-alpha-600'],

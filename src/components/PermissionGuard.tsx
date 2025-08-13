@@ -1,13 +1,14 @@
 import React, { useState, useEffect } from 'react'
-import { View, StyleSheet, StatusBar, ActivityIndicator, BackHandler } from 'react-native'
-import { Navigation } from 'react-native-navigation'
+import { View, StatusBar, ActivityIndicator, BackHandler } from 'react-native'
 import Text from './common/Text'
 import Button from './common/Button'
+import { HeroIcon } from './common/HeroIcon'
 import { useTheme } from '@/store/theme/hook'
 import { checkStoragePermissions, requestStoragePermission } from '@/utils/tools'
 import { exitApp, isNotificationsEnabled, requestNotificationPermission, isIgnoringBatteryOptimization, requestIgnoreBatteryOptimization } from '@/utils/nativeModules/utils'
 import { createStyle } from '@/utils/tools'
 import { getData, saveData } from '@/plugins/storage'
+import { FolderIcon, BellIcon, Battery100Icon } from 'react-native-heroicons/solid'
 
 interface PermissionGuardProps {
   children: React.ReactNode
@@ -23,10 +24,10 @@ interface PermissionItem {
   key: keyof PermissionState
   title: string
   description: string
-  icon: string
+  icon: 'folder' | 'bell' | 'battery'
   isRequired: boolean
   granted: boolean
-  onRequest: () => Promise<boolean>
+  onRequest: () => Promise<void>
 }
 
 const DONT_ASK_AGAIN_KEY = 'permission_dont_ask_again'
@@ -79,13 +80,13 @@ export const PermissionGuard: React.FC<PermissionGuardProps> = ({ children }) =>
       
       switch (key) {
         case 'storage':
-          result = await requestStoragePermission()
+          result = (await requestStoragePermission()) ?? false
           break
         case 'notification':
-          result = await requestNotificationPermission()
+          result = (await requestNotificationPermission()) ?? false
           break
         case 'batteryOptimization':
-          result = await requestIgnoreBatteryOptimization()
+          result = (await requestIgnoreBatteryOptimization()) ?? false
           break
       }
       
@@ -94,8 +95,8 @@ export const PermissionGuard: React.FC<PermissionGuardProps> = ({ children }) =>
         setPermissions(newPermissions)
         
         // 通知ThemeProvider权限状态变更
-        if (global.state_event) {
-          global.state_event.emit('permissionsChanged', newPermissions)
+        if ((global.state_event as any)?.emit) {
+          (global.state_event as any).emit('permissionsChanged', newPermissions)
         }
       }
     } catch (error) {
@@ -109,8 +110,8 @@ export const PermissionGuard: React.FC<PermissionGuardProps> = ({ children }) =>
     try {
       await saveData(DONT_ASK_AGAIN_KEY, true)
       // 触发全局事件通知ThemeProvider重新检查状态
-      if (global.state_event) {
-        global.state_event.emit('permissionDontAskAgainChanged', true)
+      if ((global.state_event as any)?.emit) {
+        (global.state_event as any).emit('permissionDontAskAgainChanged', true)
       }
     } catch (error) {
       console.error('Save dont ask again setting error:', error)
@@ -126,7 +127,7 @@ export const PermissionGuard: React.FC<PermissionGuardProps> = ({ children }) =>
       key: 'storage',
       title: '存储权限',
       description: '访问设备存储以播放本地音乐文件',
-      icon: '📁',
+      icon: 'folder',
       isRequired: true,
       granted: permissions.storage,
       onRequest: () => handleRequestPermission('storage'),
@@ -135,7 +136,7 @@ export const PermissionGuard: React.FC<PermissionGuardProps> = ({ children }) =>
       key: 'notification',
       title: '通知权限',
       description: '显示播放控制和下载进度通知',
-      icon: '🔔',
+      icon: 'bell',
       isRequired: false,
       granted: permissions.notification,
       onRequest: () => handleRequestPermission('notification'),
@@ -144,7 +145,7 @@ export const PermissionGuard: React.FC<PermissionGuardProps> = ({ children }) =>
       key: 'batteryOptimization',
       title: '电池优化',
       description: '允许应用在后台持续播放音乐',
-      icon: '🔋',
+      icon: 'battery',
       isRequired: false,
       granted: permissions.batteryOptimization,
       onRequest: () => handleRequestPermission('batteryOptimization'),
@@ -161,10 +162,10 @@ export const PermissionGuard: React.FC<PermissionGuardProps> = ({ children }) =>
 
   if (isChecking) {
     return (
-      <View style={[styles.container, { backgroundColor: theme['c-primary-background'] }]}>
-        <StatusBar backgroundColor={theme['c-primary-background']} barStyle={theme.isDark ? 'light-content' : 'dark-content'} />
+      <View style={[styles.container, { backgroundColor: theme['c-content-background'] }]}>
+        <StatusBar backgroundColor={theme['c-content-background']} barStyle={theme.isDark ? 'light-content' : 'dark-content'} />
         <View style={styles.loadingContent}>
-          <ActivityIndicator size="large" color={theme['c-primary-font']} />
+          <ActivityIndicator size="large" color={theme['c-primary']} />
           <Text style={[styles.loadingText, { color: theme['c-primary-font'] }]}>
             正在检查权限...
           </Text>
@@ -175,8 +176,8 @@ export const PermissionGuard: React.FC<PermissionGuardProps> = ({ children }) =>
 
   // 直接显示权限页面，不做额外判断，因为显示控制已经在ThemeProvider中处理
   return (
-    <View style={[styles.container, { backgroundColor: theme['c-primary-background'] }]}>
-      <StatusBar backgroundColor={theme['c-primary-background']} barStyle={theme.isDark ? 'light-content' : 'dark-content'} />
+    <View style={[styles.container, { backgroundColor: theme['c-content-background'] }]}>
+      <StatusBar backgroundColor={theme['c-content-background']} barStyle={theme.isDark ? 'light-content' : 'dark-content'} />
       
       <View style={styles.header}>
         <Text style={[styles.title, { color: theme['c-primary-font'] }]}>
@@ -189,14 +190,11 @@ export const PermissionGuard: React.FC<PermissionGuardProps> = ({ children }) =>
 
       <View style={styles.permissionsList}>
         {permissionItems.map((item) => (
-          <View key={item.key} style={[styles.permissionItem, { borderBottomColor: theme['c-border-color'] }]}>
+          <View key={item.key} style={[styles.permissionItem, { borderBottomColor: theme['c-border-background'] }]}>
             <View style={styles.permissionIcon}>
-              <Text style={styles.iconText}>{item.icon}</Text>
-              {item.granted && (
-                <View style={[styles.grantedBadge, { backgroundColor: theme['c-success-background'] }]}>
-                  <Text style={[styles.grantedText, { color: theme['c-success-font'] }]}>✓</Text>
-                </View>
-              )}
+              {item.icon === 'folder' && <HeroIcon icon={FolderIcon} size={32} color={theme['c-primary-font']} />}
+              {item.icon === 'bell' && <HeroIcon icon={BellIcon} size={32} color={theme['c-primary-font']} />}
+              {item.icon === 'battery' && <HeroIcon icon={Battery100Icon} size={32} color={theme['c-primary-font']} />}
             </View>
             
             <View style={styles.permissionInfo}>
@@ -205,7 +203,7 @@ export const PermissionGuard: React.FC<PermissionGuardProps> = ({ children }) =>
                   {item.title}
                 </Text>
                 {item.isRequired && (
-                  <Text style={[styles.requiredTag, { color: theme['c-danger-font'] }]}>
+                  <Text style={[styles.requiredTag, { color: theme['c-primary'], borderColor: theme['c-primary'] }]}>
                     必需
                   </Text>
                 )}
@@ -215,27 +213,27 @@ export const PermissionGuard: React.FC<PermissionGuardProps> = ({ children }) =>
               </Text>
               
               <View style={styles.permissionActions}>
-                <Text style={[styles.statusText, { 
-                  color: item.granted ? theme['c-success-font'] : theme['c-font-label'] 
+                <Text style={[styles.statusText, {
+                  color: item.granted ? theme['c-primary'] : theme['c-font-label']
                 }]}>
                   {item.granted ? '已授权' : '未授权'}
                 </Text>
                 
                 {!item.granted && (
                   <Button
-                    style={[styles.requestButton, { backgroundColor: theme['c-primary'] }]}
-                    onPress={() => item.onRequest()}
-                    disabled={requesting === item.key}
-                  >
-                    {requesting === item.key ? (
-                      <View style={styles.requestingContainer}>
-                        <ActivityIndicator size="small" color="#ffffff" />
-                        <Text style={styles.requestingText}>请求中...</Text>
-                      </View>
-                    ) : (
-                      <Text style={styles.requestButtonText}>授权</Text>
-                    )}
-                  </Button>
+                   style={[styles.requestButton, { backgroundColor: theme['c-primary'] }]}
+                   onPress={() => item.onRequest()}
+                   disabled={requesting === item.key}
+                 >
+                   {requesting === item.key ? (
+                     <View style={styles.requestingContainer}>
+                       <ActivityIndicator size="small" color={'#ffffff'} />
+                       <Text style={[styles.requestingText, { color: '#ffffff' }]}>请求中...</Text>
+                     </View>
+                   ) : (
+                     <Text style={[styles.requestButtonText, { color: '#ffffff' }]}>授权</Text>
+                   )}
+                 </Button>
                 )}
               </View>
             </View>
@@ -245,7 +243,7 @@ export const PermissionGuard: React.FC<PermissionGuardProps> = ({ children }) =>
 
       <View style={styles.footer}>
         {!permissions.storage ? (
-          <Text style={[styles.warningText, { color: theme['c-danger-font'] }]}>
+          <Text style={[styles.warningText, { color: theme['c-primary'] }]}>
             ⚠️ 存储权限是必需的，不授权将无法使用应用
           </Text>
         ) : (
@@ -256,28 +254,28 @@ export const PermissionGuard: React.FC<PermissionGuardProps> = ({ children }) =>
         
         <View style={styles.footerButtons}>
           <Button
-            style={[styles.dontAskButton, { 
-              backgroundColor: !permissions.storage 
-                ? theme['c-button-disabled-background'] || theme['c-button-background']
-                : theme['c-button-background'] 
+            style={[styles.dontAskButton, {
+              backgroundColor: !permissions.storage
+                ? theme['c-button-background']
+                : theme['c-button-background']
             }]}
             onPress={handleDontAskAgain}
             disabled={!permissions.storage}
           >
-            <Text style={[styles.dontAskButtonText, { 
-              color: !permissions.storage 
-                ? theme['c-button-disabled-font'] || theme['c-font-label']
-                : theme['c-button-font'] 
+            <Text style={[styles.dontAskButtonText, {
+              color: !permissions.storage
+                ? theme['c-font-label']
+                : theme['c-primary']
             }]}>
               不再提示
             </Text>
           </Button>
           
           <Button
-            style={[styles.exitButton, { backgroundColor: theme['c-danger-background'] }]}
+            style={[styles.exitButton, { backgroundColor: theme['c-button-background'] }]}
             onPress={handleExit}
           >
-            <Text style={[styles.exitButtonText, { color: theme['c-danger-font'] }]}>
+            <Text style={[styles.exitButtonText, { color: theme['c-primary-font'] }]}>
               退出应用
             </Text>
           </Button>
@@ -395,7 +393,6 @@ const styles = createStyle({
     minWidth: 80,
   },
   requestButtonText: {
-    color: '#ffffff',
     fontSize: 14,
     fontWeight: '500',
     textAlign: 'center',
@@ -406,7 +403,6 @@ const styles = createStyle({
     justifyContent: 'center',
   },
   requestingText: {
-    color: '#ffffff',
     fontSize: 14,
     marginLeft: 6,
   },

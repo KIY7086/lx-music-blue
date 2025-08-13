@@ -81,7 +81,7 @@ export const UserAgreement: React.FC<UserAgreementProps> = ({ children }) => {
           欢迎使用洛雪音乐！
         </Text>
 
-        <Text style={[styles.warningText, { color: theme['c-danger-font'] }]}>
+        <Text style={[styles.warningText, { color: '#d11a0aff', borderColor: theme['c-primary'] }]}>
           在使用本软件前，你（使用者）需签署本协议才可继续使用！
         </Text>
 
@@ -179,20 +179,20 @@ export const UserAgreement: React.FC<UserAgreementProps> = ({ children }) => {
             style={[styles.rejectButton, { backgroundColor: theme['c-button-background'] }]}
             onPress={handleReject}
           >
-            <Text style={[styles.rejectButtonText, { color: theme['c-button-font'] }]}>
+            <Text style={[styles.rejectButtonText, { color: theme['c-primary-font'] }]}>
               不接受
             </Text>
           </Button>
           
           <Button
-            style={[styles.acceptButton, { 
-              backgroundColor: countdown > 0 ? theme['c-button-disabled-background'] || theme['c-button-background'] : theme['c-primary']
+            style={[styles.acceptButton, {
+              backgroundColor: countdown > 0 ? theme['c-button-background'] : theme['c-primary']
             }]}
             onPress={handleAccept}
             disabled={isAccepting || countdown > 0}
           >
             <Text style={[styles.acceptButtonText, {
-              color: countdown > 0 ? theme['c-button-disabled-font'] || theme['c-font-label'] : '#ffffff'
+              color: countdown > 0 ? theme['c-font-label'] : '#ffffff'
             }]}>
               {isAccepting ? '处理中...' : countdown > 0 ? `接受（${countdown}）` : '接受'}
             </Text>
@@ -235,9 +235,8 @@ const styles = createStyle({
     marginBottom: 20,
     paddingHorizontal: 16,
     paddingVertical: 12,
-    borderRadius: 8,
+    borderRadius: 6,
     borderWidth: 1,
-    borderColor: 'currentColor',
   },
   sectionTitle: {
     fontSize: 16,
