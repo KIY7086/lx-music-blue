@@ -67,8 +67,8 @@ export const UserAgreement: React.FC<UserAgreementProps> = ({ children }) => {
   }
 
   return (
-    <View style={[styles.container, { backgroundColor: theme['c-primary-background'] }]}>
-      <StatusBar backgroundColor={theme['c-primary-background']} barStyle={theme.isDark ? 'light-content' : 'dark-content'} />
+    <View style={[styles.container, { backgroundColor: theme['c-app-background'] }]}>
+      <StatusBar backgroundColor={theme['c-app-background']} barStyle={theme.isDark ? 'light-content' : 'dark-content'} />
       
       <View style={styles.header}>
         <Text style={[styles.title, { color: theme['c-primary-font'] }]}>
