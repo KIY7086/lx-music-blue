@@ -33,3 +33,4 @@ export const useSettingValue = <T extends keyof LX.AppSetting>(key: T): LX.AppSe
 
   return value
 }
+
