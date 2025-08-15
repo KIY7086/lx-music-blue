@@ -56,6 +56,10 @@ export default memo(() => {
 
   const options = useMemo(() => [...list, ...userApiList], [list, userApiList]);
 
+  const setApiSourceId = useCallback((id: string) => {
+    setApiSource(id)
+  }, [])
+
   if (options.length === 0) {
     return (
       <View style={styles.emptyContainer}>
@@ -65,18 +69,6 @@ export default memo(() => {
     );
   }
 
-  if (options.length === 0) {
-    return (
-      <View style={styles.emptyContainer}>
-        <Text style={styles.emptyText}>{t('setting_basic_source_empty' as any)}</Text>
-      </View>
-    );
-  }
-
-  const setApiSourceId = useCallback((id: string) => {
-    setApiSource(id)
-  }, [])
-
   const progress = importProgress.total > 0 ? (importProgress.current / importProgress.total) * 100 : 0
 
   return (
@@ -84,7 +76,7 @@ export default memo(() => {
       {importProgress.visible && (
         <View style={styles.progressContainer}>
           <Text size={14} style={styles.progressText}>
-            导入进度: {importProgress.current}/{importProgress.total}
+            {t('setting_source_import_progress', { current: importProgress.current, total: importProgress.total })}
           </Text>
           <View style={styles.progressBar}>
             <View
@@ -130,6 +122,7 @@ const styles = createStyle({
   progressText: {
     marginBottom: 4,
     fontSize: 14,
+    textAlign: 'center',
   },
   progressBar: {
     width: '100%',
