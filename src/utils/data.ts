@@ -552,6 +552,23 @@ export const addUserApi = async(script: string): Promise<LX.UserApi.UserApiInfo>
   ])
   return apiInfo
 }
+
+export const checkScriptExists = async(script: string): Promise<boolean> => {
+  const { calculateScriptHash } = await import('@/utils/hash')
+  const newScriptHash = await calculateScriptHash(script)
+  
+  // 获取所有现有脚本的哈希值进行比较
+  for (const api of userApis) {
+    const existingScript = await getUserApiScript(api.id)
+    if (existingScript) {
+      const existingScriptHash = await calculateScriptHash(existingScript)
+      if (newScriptHash === existingScriptHash) {
+        return true
+      }
+    }
+  }
+  return false
+}
 export const removeUserApi = async(ids: string[]) => {
   if (!userApis) return []
   const _ids: string[] = []

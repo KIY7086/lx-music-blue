@@ -63,6 +63,7 @@ export const handleImportLocalFile = async (path: string) => {
     
     let successCount = 0
     let failCount = 0
+    let skipCount = 0
     
     for (let i = 0; i < jsFiles.length; i++) {
       const filePath = jsFiles[i]
@@ -77,8 +78,13 @@ export const handleImportLocalFile = async (path: string) => {
           successCount++
         }
       } catch (error: any) {
-        log.error(`导入文件失败: ${fileName}`, error)
-        failCount++
+        if (error.message === '该脚本已存在，跳过导入') {
+          skipCount++
+          log.info(`跳过重复脚本: ${fileName}`)
+        } else {
+          log.error(`导入文件失败: ${fileName}`, error)
+          failCount++
+        }
       }
     }
     
@@ -88,9 +94,12 @@ export const handleImportLocalFile = async (path: string) => {
       await cleanupDirectory(tempDir).catch(log.error)
     }
     
-    if (failCount > 0) {
-      toast(`${failCount} 个文件导入失败`)
-    }
+    let message = ''
+    if (successCount > 0) message += `成功导入 ${successCount} 个脚本`
+    if (skipCount > 0) message += (message ? '，' : '') + `跳过 ${skipCount} 个重复脚本`
+    if (failCount > 0) message += (message ? '，' : '') + `${failCount} 个文件导入失败`
+    
+    if (message) toast(message || '导入完成')
     
   } catch (error: any) {
     updateProgress(false)

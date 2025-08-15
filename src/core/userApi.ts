@@ -28,6 +28,11 @@ export const setUserApiList: typeof action['setUserApiList'] = (list) => {
 }
 
 export const importUserApi = async(script: string) => {
+  const { checkScriptExists } = await import('@/utils/data')
+  const exists = await checkScriptExists(script)
+  if (exists) {
+    throw new Error('该脚本已存在，跳过导入')
+  }
   const info = await addUserApi(script)
   action.addUserApi(info)
 }

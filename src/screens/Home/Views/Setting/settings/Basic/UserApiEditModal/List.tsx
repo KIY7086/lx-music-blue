@@ -36,7 +36,7 @@ const ListItem = ({ item, activeId, onRemove, onChangeAllowShowUpdateAlert }: {
   return (
     <View style={{ ...styles.listItem, backgroundColor: activeId == item.id ? theme['c-primary-background-active'] : 'transparent' }}>
       <View style={styles.listItemLeft}>
-        <Text size={14}>
+        <Text size={14} style={{ fontWeight: '500' }}>
           {item.name}
           {
             item.version ? (
@@ -51,14 +51,14 @@ const ListItem = ({ item, activeId, onRemove, onChangeAllowShowUpdateAlert }: {
         </Text>
         {
           item.description ? (
-            <Text size={12} color={theme['c-font-label']}>{item.description}</Text>
+            <Text size={12} color={theme['c-font-label']} style={{ marginTop: 2 }}>{item.description}</Text>
           ) : null
         }
         <CheckBox check={item.allowShowUpdateAlert} label={t('user_api_allow_show_update_alert')} onChange={changeAllowShowUpdateAlert} size={0.86} />
       </View>
       <View style={styles.listItemRight}>
-        <TouchableOpacity style={styles.btn} onPress={handleRemove}>
-          <HeroIcon icon={XMarkIcon} color={theme['c-button-font']} />
+        <TouchableOpacity style={styles.deleteBtn} onPress={handleRemove}>
+          <HeroIcon icon={XMarkIcon} color={theme['c-button-font']} size={20} />
         </TouchableOpacity>
       </View>
     </View>
@@ -152,9 +152,10 @@ const styles = createStyle({
   // btns: {
   //   padding: 5,
   // },
-  btn: {
-    padding: 10,
-    // backgroundColor: 'rgba(0, 0, 0, 0.2)',
+  deleteBtn: {
+    padding: 8,
+    borderRadius: 20,
+    backgroundColor: 'rgba(255, 59, 48, 0.1)',
   },
   tipText: {
     textAlign: 'center',

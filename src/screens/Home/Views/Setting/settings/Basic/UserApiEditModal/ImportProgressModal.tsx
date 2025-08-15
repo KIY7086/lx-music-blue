@@ -41,6 +41,7 @@ export default forwardRef<ImportProgressModalType, {}>((props, ref) => {
   }))
 
   const progress = total > 0 ? (current / total) * 100 : 0
+  const animatedWidth = `${progress}%`
 
   return (
     <Modal
@@ -50,24 +51,32 @@ export default forwardRef<ImportProgressModalType, {}>((props, ref) => {
     >
       <View style={styles.modalContainer}>
         <View style={[styles.container, { backgroundColor: theme['c-primary-background'] }]}>
-          <Text size={16} style={[styles.title, { color: theme['c-font'] }]}>导入进度</Text>
-          <Text size={14} style={[styles.progressText, { color: theme['c-font'] }]}>
+          <Text size={18} style={[styles.title, { color: theme['c-font'] }]}>导入进度</Text>
+          
+          <View style={styles.progressContainer}>
+            <View style={[styles.progressBar, { backgroundColor: theme['c-border-background'] }]}>
+              <View
+                style={[
+                  styles.progressFill,
+                  {
+                    width: progress,
+                    backgroundColor: theme['c-primary-font']
+                  }
+                ]}
+              />
+            </View>
+            <Text size={14} style={[styles.progressText, { color: theme['c-font'] }]}>
+              {Math.round(progress)}%
+            </Text>
+          </View>
+          
+          <Text size={14} style={[styles.fileCount, { color: theme['c-font-label'] }]}>
             {current} / {total} 文件
           </Text>
-          <Text size={12} style={[styles.message, { color: theme['c-500'] }]} numberOfLines={2}>
+          
+          <Text size={13} style={[styles.message, { color: theme['c-500'] }]} numberOfLines={2}>
             {message}
           </Text>
-          <View style={[styles.progressBar, { backgroundColor: theme['c-border-background'] }]}>
-            <View
-              style={[
-                styles.progressFill,
-                {
-                  width: `${progress}%`,
-                  backgroundColor: theme['c-primary-font']
-                }
-              ]}
-            />
-          </View>
         </View>
       </View>
     </Modal>
@@ -83,8 +92,8 @@ const styles = createStyle({
   },
   container: {
     padding: 25,
-    minWidth: 280,
-    borderRadius: 8,
+    minWidth: 300,
+    borderRadius: 12,
     elevation: 5,
     shadowColor: '#000',
     shadowOffset: { width: 0, height: 2 },
@@ -92,27 +101,33 @@ const styles = createStyle({
     shadowRadius: 3.84,
   },
   title: {
-    marginBottom: 15,
+    marginBottom: 20,
     fontWeight: 'bold',
-    fontSize: 18,
-  },
-  progressText: {
-    marginBottom: 10,
-    fontSize: 16,
-  },
-  message: {
-    marginBottom: 15,
     textAlign: 'center',
-    fontSize: 14,
+  },
+  progressContainer: {
+    marginBottom: 10,
   },
   progressBar: {
     width: '100%',
     height: 8,
     borderRadius: 4,
     overflow: 'hidden',
+    marginBottom: 8,
   },
   progressFill: {
     height: '100%',
     borderRadius: 4,
+  },
+  progressText: {
+    textAlign: 'center',
+    fontWeight: '600',
+  },
+  fileCount: {
+    textAlign: 'center',
+    marginBottom: 10,
+  },
+  message: {
+    textAlign: 'center',
   },
 })
