@@ -49,14 +49,14 @@ export default memo(() => {
           onPress={handleLocalImport}
           activeOpacity={0.8}
         >
-          <Text size={14} color={theme['c-button-font']}>{t('user_api_btn_import_local')}</Text>
+          <Text size={14} color={theme['c-font']}>{t('user_api_btn_import_local')}</Text>
         </TouchableOpacity>
         <TouchableOpacity
           style={[styles.btn, { backgroundColor: theme['c-button-background'] }]}
           onPress={handleOnlineImport}
           activeOpacity={0.8}
         >
-          <Text size={14} color={theme['c-button-font']}>{t('user_api_btn_import_online')}</Text>
+          <Text size={14} color={theme['c-font']}>{t('user_api_btn_import_online')}</Text>
         </TouchableOpacity>
       </View>
       

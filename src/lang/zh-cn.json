@@ -485,6 +485,7 @@
   "user_api_btn_import_online_input_loading": "导入中...",
   "user_api_btn_import_online_input_tip": "请输入 HTTP 链接",
   "user_api_empty": "这里竟然是空的 😲",
+  "setting_basic_source_empty": "暂无自定义源，点击下方按钮导入",
   "user_api_import_desc": "选择自定义源文件",
   "user_api_import_failed_tip": "自定义源导入失败：\n{message}",
   "user_api_import_success_tip": "导入成功 🎉",

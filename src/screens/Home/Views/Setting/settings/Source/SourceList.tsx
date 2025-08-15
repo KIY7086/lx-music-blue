@@ -1,15 +1,16 @@
-import { memo, useCallback, useMemo, useState, useEffect } from 'react'
-import { View } from 'react-native'
-import { createStyle } from '@/utils/tools'
-import { useI18n } from '@/lang'
-import { useSettingValue } from '@/store/setting/hook'
-import { useStatus, useUserApiList } from '@/store/userApi'
-import Text from '@/components/common/Text'
-import { useTheme } from '@/store/theme/hook'
-import { setApiSource } from '@/core/apiSource'
-import apiSourceInfo from '@/utils/musicSdk/api-source-info'
-import { setProgressCallback } from '../Basic/UserApiEditModal/action'
-import SettingRadioGroup from '../../components/SettingRadioGroup'
+import { memo, useCallback, useMemo, useState, useEffect } from 'react';
+import { View } from 'react-native';
+import { createStyle } from '@/utils/tools';
+import { useI18n } from '@/lang';
+import { useSettingValue } from '@/store/setting/hook';
+import { useStatus, useUserApiList } from '@/store/userApi';
+import Text from '@/components/common/Text';
+import { useTheme } from '@/store/theme/hook';
+import { setApiSource } from '@/core/apiSource';
+import apiSourceInfo from '@/utils/musicSdk/api-source-info';
+import { setProgressCallback } from '../Basic/UserApiEditModal/action';
+import SettingRadioGroup from '../../components/SettingRadioGroup';
+import { PlusCircleIcon } from 'react-native-heroicons/outline';
 
 const apiSourceList = apiSourceInfo.map(api => ({
   id: api.id,
@@ -53,7 +54,24 @@ export default memo(() => {
     })
   }, [userApiListRaw, apiStatus, apiSourceSetting, t])
 
-  const options = useMemo(() => [...list, ...userApiList], [list, userApiList])
+  const options = useMemo(() => [...list, ...userApiList], [list, userApiList]);
+
+  if (options.length === 0) {
+    return (
+      <View style={styles.emptyContainer}>
+        <PlusCircleIcon size={50} color={theme['c-font-label']} />
+        <Text style={styles.emptyText}>{t('setting_basic_source_empty' as any)}</Text>
+      </View>
+    );
+  }
+
+  if (options.length === 0) {
+    return (
+      <View style={styles.emptyContainer}>
+        <Text style={styles.emptyText}>{t('setting_basic_source_empty' as any)}</Text>
+      </View>
+    );
+  }
 
   const setApiSourceId = useCallback((id: string) => {
     setApiSource(id)
@@ -93,6 +111,17 @@ const styles = createStyle({
   list: {
     flexGrow: 0,
     flexShrink: 1,
+  },
+  emptyContainer: {
+    flex: 1,
+    alignItems: 'center',
+    justifyContent: 'center',
+    paddingVertical: 50,
+  },
+  emptyText: {
+    marginTop: 10,
+    fontSize: 16,
+    color: '#999',
   },
   progressContainer: {
     paddingVertical: 8,

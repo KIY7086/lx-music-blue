@@ -485,6 +485,7 @@
   "user_api_btn_import_online_input_loading": "匯入中...",
   "user_api_btn_import_online_input_tip": "請輸入 HTTP 連結",
   "user_api_empty": "這裡竟然是空的 😲",
+  "setting_basic_source_empty": "暫無自訂來源 API，點擊下方按鈕匯入",
   "user_api_import_desc": "選取自訂來源 API 檔案",
   "user_api_import_failed_tip": "自訂來源 API 匯入失敗：\n{message}",
   "user_api_import_success_tip": "匯入成功 🎉",

@@ -40,7 +40,7 @@ const AppleStyleSwitch = memo(({ value }: { value: boolean }) => {
   // 背景颜色插值
   const trackColor = animatedValue.interpolate({
     inputRange: [0, 1],
-    outputRange: [theme['c-primary-alpha-900'], theme['c-primary']],
+    outputRange: [theme['c-primary-alpha-500'], theme['c-primary']],
   })
 
   // 计算 left 的范围：从 padding 到 (trackWidth - thumbWidth - padding)
@@ -84,7 +84,7 @@ const AppleStyleSwitch = memo(({ value }: { value: boolean }) => {
         style={[
           styles.switchThumb,
           {
-            backgroundColor: theme['c-app-background'],
+            backgroundColor: '#ffffff',
             position: 'absolute',
             left: minLeft, // 固定基础 left，由 translateX 处理移动
             top: topOffset,
@@ -129,7 +129,7 @@ export default memo(({
   return (
     <View style={[styles.container, disabled && styles.disabled]}>
       <TouchableOpacity
-        style={[styles.content, { backgroundColor: theme['c-content-background'] }]}
+        style={[styles.content]}
         onPress={() => onValueChange(!value)}
         activeOpacity={0.7}
         disabled={disabled}
@@ -166,6 +166,7 @@ const styles = createStyle({
     paddingRight: 8,
   },
   description: {
+    paddingTop: 2,
     fontSize: 13,
     marginTop: 0,
     paddingHorizontal: 8,
