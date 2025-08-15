@@ -22,32 +22,32 @@ const Main = () => {
     }
   }, [])
 
-  const renderContent = () => {
-    switch (activeId) {
-      case 'nav_search':
-        return <Search />
-      case 'nav_songlist':
-        return <SongList />
-      case 'nav_top':
-        return <Leaderboard />
-      case 'nav_love':
-        return <Mylist />
-      case 'nav_setting':
-        return <Setting />
-      default:
-        return null
-    }
-  }
-
   return (
     <View style={styles.container}>
-      {renderContent()}
+      <View style={{ ...styles.content, display: activeId === 'nav_search' ? 'flex' : 'none' }}>
+        <Search />
+      </View>
+      <View style={{ ...styles.content, display: activeId === 'nav_songlist' ? 'flex' : 'none' }}>
+        <SongList />
+      </View>
+      <View style={{ ...styles.content, display: activeId === 'nav_top' ? 'flex' : 'none' }}>
+        <Leaderboard />
+      </View>
+      <View style={{ ...styles.content, display: activeId === 'nav_love' ? 'flex' : 'none' }}>
+        <Mylist />
+      </View>
+      <View style={{ ...styles.content, display: activeId === 'nav_setting' ? 'flex' : 'none' }}>
+        <Setting />
+      </View>
     </View>
   )
 }
 
 const styles = createStyle({
   container: {
+    flex: 1,
+  },
+  content: {
     flex: 1,
   },
 })

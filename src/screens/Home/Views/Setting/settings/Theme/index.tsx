@@ -10,7 +10,7 @@ import AllThemeSelector from './AllThemeSelector'
 
 const styles = createStyle({
   container: {
-    paddingBottom: 16,
+    paddingVertical: 16,
   },
 })
 
@@ -18,13 +18,11 @@ export default memo(() => {
   const t = useI18n()
 
   return (
-    <Section title={t('setting_basic_theme')}>
-      <View style={styles.container}>
-        <AutoThemeToggle />
-        <AllThemeSelector />
-        <LightThemeSelector />
-        <DarkThemeSelector />
-      </View>
-    </Section>
+    <View style={styles.container}>
+      <AutoThemeToggle />
+      <AllThemeSelector />
+      <LightThemeSelector />
+      <DarkThemeSelector />
+    </View>
   )
 })

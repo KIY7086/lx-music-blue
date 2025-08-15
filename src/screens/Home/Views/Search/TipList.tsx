@@ -1,4 +1,5 @@
 import { useRef, useImperativeHandle, forwardRef, useState, useEffect } from 'react'
+import { View } from 'react-native'
 import SearchTipList, { type SearchTipListProps as _SearchTipListProps, type SearchTipListType as _SearchTipListType } from '@/components/SearchTipList'
 import Button from '@/components/common/Button'
 import { createStyle } from '@/utils/tools'
@@ -109,20 +110,23 @@ export default forwardRef<TipListType, TipListProps>(({ onSearch }, ref) => {
   }
 
   return (
-    visible
-      ? <SearchTipList
-          ref={searchTipListRef}
-          renderItem={renderItem}
-          onPressBg={() => searchTipListRef.current?.setList([])}
-          keyExtractor={getkey}
-          getItemLayout={getItemLayout}
-        />
-      : null
+    <View style={{ ...styles.container, display: visible ? 'flex' : 'none' }}>
+      <SearchTipList
+        ref={searchTipListRef}
+        renderItem={renderItem}
+        onPressBg={() => searchTipListRef.current?.setList([])}
+        keyExtractor={getkey}
+        getItemLayout={getItemLayout}
+      />
+    </View>
   )
 })
 
 
 const styles = createStyle({
+  container: {
+    flex: 1,
+  },
   item: {
     height: ITEM_HEIGHT,
     flexDirection: 'row',
