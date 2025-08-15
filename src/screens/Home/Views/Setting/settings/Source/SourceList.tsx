@@ -4,12 +4,12 @@ import { createStyle } from '@/utils/tools'
 import { useI18n } from '@/lang'
 import { useSettingValue } from '@/store/setting/hook'
 import { useStatus, useUserApiList } from '@/store/userApi'
-import CheckBox from '@/components/common/CheckBox'
 import Text from '@/components/common/Text'
 import { useTheme } from '@/store/theme/hook'
 import { setApiSource } from '@/core/apiSource'
 import apiSourceInfo from '@/utils/musicSdk/api-source-info'
 import { setProgressCallback } from '../Basic/UserApiEditModal/action'
+import SettingRadioGroup from '../../components/SettingRadioGroup'
 
 const apiSourceList = apiSourceInfo.map(api => ({
   id: api.id,
@@ -17,43 +17,13 @@ const apiSourceList = apiSourceInfo.map(api => ({
   disabled: api.disabled,
 }))
 
-const useActive = (id: string) => {
-  const activeLangId = useSettingValue('common.apiSource')
-  const isActive = useMemo(() => activeLangId == id, [activeLangId, id])
-  return isActive
-}
-
-const Item = ({ id, name, desc, statusLabel, change }: {
-  id: string
-  name: string
-  desc?: string
-  statusLabel?: string
-  change: (id: string) => void
-}) => {
-  const isActive = useActive(id)
-  const theme = useTheme()
-  
-  return (
-    <CheckBox marginBottom={5} check={isActive} onChange={() => { change(id) }} need>
-      <Text style={styles.sourceLabel}>
-        {name}
-        {
-          desc ? <Text style={styles.sourceDesc} color={theme['c-500']} size={13}>  {desc}</Text> : null
-        }
-        {
-          statusLabel ? <Text style={styles.sourceStatus} size={13}>  {statusLabel}</Text> : null
-        }
-      </Text>
-    </CheckBox>
-  )
-}
-
 export default memo(() => {
   const t = useI18n()
   const userApiListRaw = useUserApiList()
   const apiStatus = useStatus()
   const apiSourceSetting = useSettingValue('common.apiSource')
   const [importProgress, setImportProgress] = useState({ visible: false, current: 0, total: 0, message: '' })
+  const theme = useTheme()
 
   useEffect(() => {
     setProgressCallback(setImportProgress)
@@ -61,8 +31,8 @@ export default memo(() => {
 
   const list = useMemo(() => apiSourceList.map(s => ({
     // @ts-expect-error
-    name: t(`setting_basic_source_${s.id}`) || s.name,
-    id: s.id,
+    label: t(`setting_basic_source_${s.id}`) || s.name,
+    value: s.id,
   })), [t])
 
   const userApiList = useMemo(() => {
@@ -75,16 +45,15 @@ export default memo(() => {
       return status
     }
     return userApiListRaw.map(api => {
-      const statusLabel = api.id == apiSourceSetting ? `[${getApiStatus()}]` : ''
+      const statusLabel = api.id == apiSourceSetting ? ` [${getApiStatus()}]` : ''
       return {
-        id: api.id,
-        name: api.name,
+        value: api.id,
         label: `${api.name}${statusLabel}`,
-        desc: [/^\d/.test(api.version) ? `v${api.version}` : api.version].filter(Boolean).join(', '),
-        statusLabel,
       }
     })
   }, [userApiListRaw, apiStatus, apiSourceSetting, t])
+
+  const options = useMemo(() => [...list, ...userApiList], [list, userApiList])
 
   const setApiSourceId = useCallback((id: string) => {
     setApiSource(id)
@@ -100,8 +69,8 @@ export default memo(() => {
             导入进度: {importProgress.current}/{importProgress.total}
           </Text>
           <View style={styles.progressBar}>
-            <View 
-              style={[styles.progressFill, { width: `${progress}%` }]} 
+            <View
+              style={[styles.progressFill, { width: `${progress}%`, backgroundColor: theme['c-primary'] }]}
             />
           </View>
           <Text size={12} style={styles.progressMessage} numberOfLines={1}>
@@ -110,10 +79,12 @@ export default memo(() => {
         </View>
       )}
       
-      {list.map(({ id, name }) => <Item name={name} id={id} key={id} change={setApiSourceId} />)}
-      {userApiList.map(({ id, name, desc, statusLabel }) => 
-        <Item name={name} desc={desc} statusLabel={statusLabel} id={id} key={id} change={setApiSourceId} />
-      )}
+      <SettingRadioGroup
+        label={t('setting_basic_source')}
+        options={options}
+        value={apiSourceSetting}
+        onValueChange={setApiSourceId}
+      />
     </View>
   )
 })

@@ -10,7 +10,7 @@ import AllThemeSelector from './AllThemeSelector'
 
 const styles = createStyle({
   container: {
-    paddingVertical: 8,
+    paddingBottom: 16,
   },
 })
 

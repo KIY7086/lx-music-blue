@@ -1,27 +1,11 @@
-import { memo, useState, useEffect } from 'react'
+import { memo, useState, useEffect, useMemo } from 'react'
 import { View } from 'react-native'
 import { createStyle } from '@/utils/tools'
 import { useI18n } from '@/lang'
 import { useSettingValue } from '@/store/setting/hook'
-import { updateSetting } from '@/core/common'
 import Text from '@/components/common/Text'
-import CheckBox from '@/components/common/CheckBox'
 import SubTitle from '../../components/SubTitle'
-
-const styles = createStyle({
-  container: {
-    paddingVertical: 8,
-  },
-  list: {
-    flexDirection: 'row',
-    flexWrap: 'wrap',
-    paddingHorizontal: 15,
-  },
-  item: {
-    marginRight: 12,
-    marginBottom: 8,
-  },
-})
+import SettingRadioGroup from '../../components/SettingRadioGroup'
 
 const allThemes = [
   { id: 'libadwaita_light', name: 'theme_libadwaita_light', isDark: false },
@@ -44,23 +28,6 @@ const allThemes = [
   { id: 'happy_new_year', name: 'theme_happy_new_year', isDark: false },
 ]
 
-const ThemeItem = ({ id, name, isActive, onSelect }: {
-  id: string
-  name: string
-  isActive: boolean
-  onSelect: (id: string) => void
-}) => {
-  return (
-    <CheckBox
-      marginRight={8}
-      check={isActive}
-      label={name}
-      onChange={() => onSelect(id)}
-      need
-    />
-  )
-}
-
 export default memo(() => {
   const t = useI18n()
   const themeId = useSettingValue('theme.id')
@@ -76,6 +43,11 @@ export default memo(() => {
     return () => clearTimeout(timer)
   }, [])
 
+  const options = useMemo(() => allThemes.map(({ id, name }) => ({
+    label: t(name as any),
+    value: id,
+  })), [t])
+
   const handleSelect = (id: string) => {
     // 使用setTheme来同时更新设置和应用主题
     import('@/core/theme').then(({ setTheme }) => {
@@ -87,18 +59,13 @@ export default memo(() => {
   if (autoTheme) return null
 
   return (
-    <SubTitle title={t('setting_basic_theme')}>
-      <View style={styles.list}>
-        {allThemes.map(({ id, name }) => (
-          <ThemeItem
-            key={id}
-            id={id}
-            name={t(name as any)}
-            isActive={themeId === id}
-            onSelect={handleSelect}
-          />
-        ))}
+      <View>
+        <SettingRadioGroup
+          label={t('setting_basic_theme')}
+          options={options}
+          value={themeId}
+          onValueChange={handleSelect}
+        />
       </View>
-    </SubTitle>
   )
 })

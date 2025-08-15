@@ -73,12 +73,12 @@ export default memo(<T extends string>({
 const styles = createStyle({
   container: {
     paddingHorizontal: 16,
-    paddingVertical: 12,
+    paddingVertical: 6,
   },
   label: {
     fontSize: 16,
     fontWeight: '500',
-    marginBottom: 4,
+    marginBottom: 8,
   },
   description: {
     fontSize: 14,
