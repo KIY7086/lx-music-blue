@@ -1,6 +1,5 @@
 import { memo } from 'react'
-
-import Section from '../../components/Section'
+import { ScrollView } from 'react-native'
 import Language from './Language'
 import FontSize from './FontSize'
 import ShareType from './ShareType'
@@ -17,20 +16,19 @@ import { useI18n } from '@/lang'
 export default memo(() => {
   const t = useI18n()
 
-
   return (
-    <Section title={t('setting_basic')}>
-      <IsStartupAutoPlay />
-      <IsStartupPushPlayDetailScreen />
-      <IsAutoHidePlayBar />
-      <IsHomePageScroll />
-      <IsUseSystemFileSelector />
-      <IsAlwaysKeepStatusbarHeight />
-      <DrawerLayoutPosition />
-      <Language />
-      <FontSize />
-      <ShareType />
-      <ThemeSettings />
-    </Section>
+    <ScrollView>
+        <IsStartupAutoPlay />
+        <IsStartupPushPlayDetailScreen />
+        <IsAutoHidePlayBar />
+        <IsHomePageScroll />
+        <IsUseSystemFileSelector />
+        <IsAlwaysKeepStatusbarHeight />
+        <DrawerLayoutPosition />
+        <Language />
+        <FontSize />
+        <ShareType />
+        <ThemeSettings />
+    </ScrollView>
   )
 })

@@ -5,8 +5,7 @@ import { memo } from 'react'
 import { View } from 'react-native'
 import { useSettingValue } from '@/store/setting/hook'
 
-
-import CheckBoxItem from '../../components/CheckBoxItem'
+import SettingSwitch from '../../components/SettingSwitch'
 
 export default memo(() => {
   const t = useI18n()
@@ -17,11 +16,14 @@ export default memo(() => {
 
   return (
     <View style={styles.content}>
-      <CheckBoxItem check={homePageScroll} label={t('setting_basic_home_page_scroll')} onChange={setHomePageScroll} />
+      <SettingSwitch
+        label={t('setting_basic_home_page_scroll')}
+        value={homePageScroll}
+        onValueChange={setHomePageScroll}
+      />
     </View>
   )
 })
-
 
 const styles = createStyle({
   content: {

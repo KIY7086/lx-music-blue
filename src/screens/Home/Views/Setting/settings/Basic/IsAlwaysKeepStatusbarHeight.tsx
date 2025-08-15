@@ -6,7 +6,7 @@ import { View } from 'react-native'
 import { useSettingValue } from '@/store/setting/hook'
 
 
-import CheckBoxItem from '../../components/CheckBoxItem'
+import SettingSwitch from '../../components/SettingSwitch'
 
 export default memo(() => {
   const t = useI18n()
@@ -17,11 +17,12 @@ export default memo(() => {
 
   return (
     <View style={styles.content}>
-      <CheckBoxItem
-        check={val}
+      <SettingSwitch
         label={t('setting_basic_always_keep_statusbar_height')}
-        helpDesc={t('setting_basic_always_keep_statusbar_height_tip')}
-        onChange={update} />
+        description={t('setting_basic_always_keep_statusbar_height_tip')}
+        value={val}
+        onValueChange={update}
+      />
     </View>
   )
 })

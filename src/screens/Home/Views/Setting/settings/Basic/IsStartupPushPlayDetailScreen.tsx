@@ -5,8 +5,7 @@ import { memo } from 'react'
 import { View } from 'react-native'
 import { useSettingValue } from '@/store/setting/hook'
 
-
-import CheckBoxItem from '../../components/CheckBoxItem'
+import SettingSwitch from '../../components/SettingSwitch'
 
 export default memo(() => {
   const t = useI18n()
@@ -17,15 +16,17 @@ export default memo(() => {
 
   return (
     <View style={styles.content}>
-      <CheckBoxItem check={startupPushPlayDetailScreen} label={t('setting_basic_startup_push_play_detail_screen')} onChange={setStartupPushPlayDetailScreen} />
+      <SettingSwitch
+        label={t('setting_basic_startup_push_play_detail_screen')}
+        value={startupPushPlayDetailScreen}
+        onValueChange={setStartupPushPlayDetailScreen}
+      />
     </View>
   )
 })
 
-
 const styles = createStyle({
   content: {
     marginTop: 5,
-    // marginBottom: 15,
   },
 })
